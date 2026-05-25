@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extra — ICW-portaal</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #000;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #000;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .logo img { height: 40px; display: block; }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+
+    /* Language dropdown */
+    .lang { position: relative; }
+
+    .lang-btn {
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #2a2a2a;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .lang-btn:hover { border-color: #f1be32; color: #f1be32; }
+
+    .lang-menu {
+      list-style: none;
+      position: absolute;
+      top: 42px;
+      right: 0;
+      background-color: #0a0a0a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      min-width: 120px;
+      display: none;
+      z-index: 10;
+    }
+
+    .lang-menu.show { display: block; }
+
+    .lang-menu button {
+      display: block;
+      width: 100%;
+      padding: 10px 16px;
+      background-color: transparent;
+      color: #fff;
+      text-align: left;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .lang-menu button:hover { background-color: #1a1a1a; color: #f1be32; }
+
+    /* Burger menu */
+    nav { position: relative; }
+
+    .menu-btn {
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #2a2a2a;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .menu-btn:hover { border-color: #f1be32; color: #f1be32; }
+
+    .menu {
+      list-style: none;
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background-color: #0a0a0a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      min-width: 280px;
+      display: none;
+      z-index: 10;
+    }
+
+    .menu.show { display: block; }
+
+    .menu .free-tag {
+      display: inline-block;
+      margin-left: 8px;
+      color: #f1be32;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .menu a {
+      display: block;
+      padding: 12px 16px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .menu a:hover { background-color: #1a1a1a; color: #f1be32; }
+
+    .hero {
+      padding: 80px 24px 30px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 { font-size: 40px; margin-bottom: 16px; color: #fff; letter-spacing: 1px; }
+    .hero .accent { color: #f1be32; }
+    .hero p { font-size: 16px; color: #a0a0a5; margin-bottom: 12px; }
+
+    .section-title {
+      max-width: 1000px;
+      margin: 50px auto 20px;
+      padding: 0 24px;
+      font-size: 12px;
+      color: #888;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .section-title .marker { color: #f1be32; margin-right: 10px; }
+
+    /* Sponsor card (Garamond, premium look) */
+    .sponsor-wrap { max-width: 1000px; margin: 0 auto 40px; padding: 0 24px; }
+
+    .sponsor {
+      font-family: 'Garamond', 'Times New Roman', serif;
+      background-color: #0a0a0a;
+      border-radius: 4px;
+      padding: 40px 44px;
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      border: 1px solid #2a2a2a;
+      border-left: 4px solid #f1be32;
+    }
+
+    .sponsor .logo-box {
+      flex-shrink: 0;
+      width: 140px;
+      height: 140px;
+      border-radius: 4px;
+      background-color: #000;
+      border: 1px solid #2a2a2a;
+      padding: 10px;
+      object-fit: contain;
+    }
+
+    .sponsor .info { flex: 1; }
+
+    .sponsor .role {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      color: #f1be32;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .sponsor .name {
+      font-size: 32px;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    .sponsor .tag {
+      font-size: 17px;
+      color: #c0c0c5;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    /* Developer cards */
+    .contributors {
+      max-width: 1000px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contributor {
+      border-radius: 4px;
+      display: flex;
+      align-items: stretch;
+      border: 1px solid #1a1a1a;
+      overflow: hidden;
+      min-height: 220px;
+    }
+
+    .contributor:hover { border-color: #333; }
+
+    /* The left panel of each dev card — paste your image/gif URL into the inline style on each card */
+    .card-bg {
+      flex-shrink: 0;
+      width: 240px;
+      background-color: #141414;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card-bg .pfp {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background-color: #000;
+      border: 2px solid #fff;
+      object-fit: cover;
+    }
+
+    .contributor .info {
+      flex: 1;
+      background-color: #0a0a0a;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contributor .info a.github {
+      display: inline-block;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .contributor .info a.github:hover { color: #f1be32; }
+
+    .contributor .info .underline {
+      width: 30px;
+      height: 1px;
+      background-color: #f1be32;
+      margin-bottom: 14px;
+    }
+
+    .contributor .info ul { list-style: none; }
+
+    .contributor .info li {
+      padding: 4px 0 4px 18px;
+      position: relative;
+      color: #c0c0c5;
+      font-size: 14px;
+    }
+
+    .contributor .info li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: #f1be32;
+      font-size: 20px;
+      line-height: 1;
+      top: 6px;
+    }
+
+    /* Project reviewer (small badge at bottom) */
+    .reviewer-wrap { max-width: 1000px; margin: 0 auto 70px; padding: 0 24px; }
+
+    .reviewer {
+      background-color: #0a0a0a;
+      border-radius: 4px;
+      padding: 18px 22px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      border: 1px solid #1a1a1a;
+      max-width: 520px;
+    }
+
+    .reviewer .pfp {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #000;
+      border: 1px solid #2a2a2a;
+      object-fit: cover;
+    }
+
+    .reviewer .info { flex: 1; min-width: 0; }
+
+    .reviewer .role {
+      font-size: 10px;
+      color: #888;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .reviewer .name { font-size: 15px; color: #fff; margin-bottom: 8px; }
+
+    .socials { display: flex; gap: 8px; }
+
+    .socials a {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #000;
+      border: 1px solid #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .socials a:hover { border-color: #f1be32; }
+
+    .socials img { width: 14px; height: 14px; }
+
+    /* Beta section */
+    .beta { max-width: 1000px; margin: 60px auto; padding: 0 24px; }
+
+    .beta-inner {
+      background-color: #0a0a0a;
+      border-radius: 4px;
+      padding: 36px;
+      border-left: 4px solid #f1be32;
+      border-top: 1px solid #1a1a1a;
+      border-right: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .beta-tag {
+      display: inline-block;
+      color: #f1be32;
+      border: 1px solid #f1be32;
+      padding: 3px 10px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+
+    .beta h2 { font-size: 22px; color: #fff; margin-bottom: 14px; letter-spacing: 1px; }
+
+    .beta p { color: #a0a0a5; font-size: 15px; margin-bottom: 12px; }
+
+    .btn-secondary {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: transparent;
+      color: #f1be32;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+      border: 1px solid #f1be32;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .btn-secondary:hover { background-color: #f1be32; color: #000; }
+
+    footer {
+      background-color: #000;
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: #666;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 700px) {
+      header { padding: 12px 16px; }
+      .logo img { height: 32px; }
+      .header-right { gap: 8px; }
+      .hero h1 { font-size: 28px; }
+      .hero { padding: 50px 20px 20px; }
+      .sponsor {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 20px;
+      }
+      .contributor { flex-direction: column; min-height: auto; }
+      .card-bg { width: 100%; padding: 28px; }
+      .contributor .info { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo"><img src="icw.png.png" alt="ICW-portaal"></a>
+    <div class="header-right">
+      <div class="lang">
+        <button class="lang-btn" onclick="toggleLang()">🌐</button>
+        <ul class="lang-menu" id="lang-menu">
+          <li><button onclick="setLang('nl')">Nederlands</button></li>
+          <li><button onclick="setLang('en')">English</button></li>
+          <li><button onclick="setLang('fr')">Français</button></li>
+        </ul>
+      </div>
+      <nav>
+        <button class="menu-btn" id="menu-btn" onclick="toggleMenu()">Menu ☰</button>
+        <ul class="menu" id="menu">
+          <li><a href="index.html" id="nav-home">Home</a></li>
+          <li><a href="leerpad.html" id="nav-path">Cursus <span class="free-tag" id="free-tag">← 100% gratis bronnen!</span></a></li>
+          <li><a href="over-icw.html" id="nav-about">Over ICW <span class="free-tag" id="test-tag">← Doe onze ICW test!</span></a></li>
+          <li><a href="community.html" id="nav-hackathon">Hackathon V1</a></li>
+          <li><a href="extra.html" id="nav-extra">Dev team</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1><span id="hero-h1a">Onze</span> <span class="accent" id="hero-h1b">dev team</span></h1>
+    <p id="hero-p">Geleid door studenten, met reviews op industriestandaard.</p>
+  </section>
+
+  <p class="section-title"><span class="marker">◆</span><span id="sponsor-label">Mogelijk gemaakt door</span></p>
+  <div class="sponsor-wrap">
+    <div class="sponsor">
+      <img class="logo-box" src="https://via.placeholder.com/140x140/000000/f1be32?text=LOGO" alt="Logo example">
+      <div class="info">
+        <p class="role" id="sponsor-role">Sponsor &amp; Financiële Steun</p>
+        <p class="name">example</p>
+        <p class="tag" id="sponsor-tag">Financieel beheer en ondersteuning van het ICW-portaal.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title"><span class="marker">◆</span><span id="devs-label">Developers</span></p>
+  <div class="contributors">
+
+    <!-- Developer 1 — paste image/gif URL into the inline style below -->
+    <div class="contributor">
+      <div class="card-bg" style="background-image: none;">
+        <img class="pfp" src="https://github.com/example1.png" alt="Profile picture example1">
+      </div>
+      <div class="info">
+        <a class="github" href="https://github.com/example1" target="_blank" rel="noopener noreferrer">@example1</a>
+        <div class="underline"></div>
+        <p style="color: #8a8a95; font-size: 13px; margin-bottom: 10px; letter-spacing: 1px;">Computational Industrial Sciences student</p>
+        <ul>
+          <li>Led the translation work across the platform</li>
+          <li>Conducted research and curated source material</li>
+          <li>Managed a large share of the GitHub workload and version control</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Developer 2 — paste image/gif URL into the inline style below -->
+    <div class="contributor">
+      <div class="card-bg" style="background-image: none;">
+        <img class="pfp" src="https://github.com/Zi3600.png" alt="Profile picture Zi3600">
+      </div>
+      <div class="info">
+        <a class="github" href="https://github.com/Zi3600" target="_blank" rel="noopener noreferrer">@Zi3600</a>
+        <div class="underline"></div>
+        <ul>
+          <li>Conducted platform-wide research and source curation</li>
+          <li>Maintains the Hackathon and community events</li>
+          <li>Handled the financial organisation, sponsor proposals and approval processes</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Developer 3 — paste image/gif URL into the inline style below -->
+    <div class="contributor">
+      <div class="card-bg" style="background-image: none;">
+        <img class="pfp" src="https://github.com/example3.png" alt="Profile picture example3">
+      </div>
+      <div class="info">
+        <a class="github" href="https://github.com/example3" target="_blank" rel="noopener noreferrer">@example3</a>
+        <div class="underline"></div>
+        <ul>
+          <li>Heavy assist work across the team, supporting wherever needed</li>
+          <li>Contributed major implementations and shaped the project direction</li>
+          <li>Handled testing and pre-reviews before each release</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="section-title"><span class="marker">◆</span><span id="reviewer-label">Onder de technische leiding van</span></p>
+  <div class="reviewer-wrap">
+    <div class="reviewer">
+      <img class="pfp" src="https://github.com/example0.png" alt="Profile picture example0">
+      <div class="info">
+        <p class="role" id="reviewer-role">Project Reviewer</p>
+        <p class="name">example0</p>
+        <div class="socials">
+          <a href="https://www.linkedin.com/in/example0" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <img src="https://cdn.simpleicons.org/linkedin/ffffff" alt="LinkedIn">
+          </a>
+          <a href="https://www.instagram.com/example0" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <img src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram">
+          </a>
+          <a href="https://github.com/example0" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="beta">
+    <div class="beta-inner">
+      <span class="beta-tag" id="beta-tag">BETA</span>
+      <h2 id="beta-h2">Dit project is nog volop in ontwikkeling.</h2>
+      <p id="beta-p1">We zitten nog in beta. Dingen breken, teksten veranderen, features komen en gaan. Vond je een bug? Heb je een idee? Iets klopt niet?</p>
+      <p id="beta-p2">Stuur ons feedback en we voegen je toe als <strong style="color: #fff;">test engineer</strong> op deze pagina — je naam, GitHub, en een vermelding in het dev team.</p>
+      <a href="mailto:hackathon@example.com" class="btn-secondary" id="beta-btn">Stuur ons feedback →</a>
+    </div>
+  </section>
+
+  <footer>
+    <p><a href="thanks.html" style="color: inherit; text-decoration: none;">&copy;</a> 2026 ICW-portaal — <span id="footer-credit">gemaakt door studenten, voor studenten.</span></p>
+  </footer>
+
+  <script>
+
+    function setLang(lang) {
+
+      // === Dutch ===
+      if (lang === "nl") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Home";
+        document.getElementById("nav-path").innerHTML = 'Cursus <span class="free-tag" id="free-tag">← 100% gratis bronnen!</span>';
+        document.getElementById("nav-about").innerHTML = 'Over ICW <span class="free-tag" id="test-tag">← Doe onze ICW test!</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-h1a").textContent = "Onze";
+        document.getElementById("hero-h1b").textContent = "dev team";
+        document.getElementById("hero-p").textContent = "Geleid door studenten, met reviews op industriestandaard.";
+
+        document.getElementById("sponsor-label").textContent = "Mogelijk gemaakt door";
+        document.getElementById("sponsor-role").textContent = "Sponsor & Financiële Steun";
+        document.getElementById("sponsor-tag").textContent = "Financieel beheer en ondersteuning van het ICW-portaal.";
+
+        document.getElementById("devs-label").textContent = "Developers";
+
+        document.getElementById("reviewer-label").textContent = "Onder de technische leiding van";
+        document.getElementById("reviewer-role").textContent = "Project Reviewer";
+
+        document.getElementById("beta-tag").textContent = "BETA";
+        document.getElementById("beta-h2").textContent = "Dit project is nog volop in ontwikkeling.";
+        document.getElementById("beta-p1").textContent = "We zitten nog in beta. Dingen breken, teksten veranderen, features komen en gaan. Vond je een bug? Heb je een idee? Iets klopt niet?";
+        document.getElementById("beta-p2").innerHTML = "Stuur ons feedback en we voegen je toe als <strong style=\"color: #fff;\">test engineer</strong> op deze pagina — je naam, GitHub, en een vermelding in het dev team.";
+        document.getElementById("beta-btn").textContent = "Stuur ons feedback →";
+
+        document.getElementById("footer-credit").textContent = "gemaakt door studenten, voor studenten.";
+      }
+
+      // === English ===
+      else if (lang === "en") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Home";
+        document.getElementById("nav-path").innerHTML = 'Course <span class="free-tag" id="free-tag">← 100% free sources!</span>';
+        document.getElementById("nav-about").innerHTML = 'About ICW <span class="free-tag" id="test-tag">← Take our ICW test!</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-h1a").textContent = "Our";
+        document.getElementById("hero-h1b").textContent = "dev team";
+        document.getElementById("hero-p").textContent = "Led by students, with industry-standard reviews.";
+
+        document.getElementById("sponsor-label").textContent = "Made possible by";
+        document.getElementById("sponsor-role").textContent = "Sponsor & Financial Support";
+        document.getElementById("sponsor-tag").textContent = "Financial management and support of the ICW portal.";
+
+        document.getElementById("devs-label").textContent = "Developers";
+
+        document.getElementById("reviewer-label").textContent = "Under the technical direction of";
+        document.getElementById("reviewer-role").textContent = "Project Reviewer";
+
+        document.getElementById("beta-tag").textContent = "BETA";
+        document.getElementById("beta-h2").textContent = "This project is still actively in development.";
+        document.getElementById("beta-p1").textContent = "We're still in beta. Things break, text changes, features come and go. Found a bug? Got an idea? Something not adding up?";
+        document.getElementById("beta-p2").innerHTML = "Send us feedback and we'll add you as a <strong style=\"color: #fff;\">test engineer</strong> on this page — your name, GitHub, and a mention in the dev team.";
+        document.getElementById("beta-btn").textContent = "Send us feedback →";
+
+        document.getElementById("footer-credit").textContent = "made by students, for students.";
+      }
+
+      // === French ===
+      else if (lang === "fr") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Accueil";
+        document.getElementById("nav-path").innerHTML = 'Cours <span class="free-tag" id="free-tag">← 100% sources gratuites !</span>';
+        document.getElementById("nav-about").innerHTML = 'À propos d\'ICW <span class="free-tag" id="test-tag">← Fais notre test ICW !</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-h1a").textContent = "Notre";
+        document.getElementById("hero-h1b").textContent = "équipe dev";
+        document.getElementById("hero-p").textContent = "Dirigé par des étudiants, avec des reviews au standard de l'industrie.";
+
+        document.getElementById("sponsor-label").textContent = "Rendu possible par";
+        document.getElementById("sponsor-role").textContent = "Sponsor & Soutien Financier";
+        document.getElementById("sponsor-tag").textContent = "Gestion financière et soutien du portail ICW.";
+
+        document.getElementById("devs-label").textContent = "Développeurs";
+
+        document.getElementById("reviewer-label").textContent = "Sous la direction technique de";
+        document.getElementById("reviewer-role").textContent = "Project Reviewer";
+
+        document.getElementById("beta-tag").textContent = "BETA";
+        document.getElementById("beta-h2").textContent = "Ce projet est encore en plein développement.";
+        document.getElementById("beta-p1").textContent = "On est encore en beta. Des trucs cassent, les textes changent, les features vont et viennent. T'as trouvé un bug ? T'as une idée ? Y a un truc qui colle pas ?";
+        document.getElementById("beta-p2").innerHTML = "Envoie-nous ton feedback et on t'ajoute comme <strong style=\"color: #fff;\">test engineer</strong> sur cette page — ton nom, GitHub, et une mention dans l'équipe dev.";
+        document.getElementById("beta-btn").textContent = "Envoie-nous ton feedback →";
+
+        document.getElementById("footer-credit").textContent = "fait par des étudiants, pour des étudiants.";
+      }
+
+      localStorage.setItem("icw-lang", lang);
+      document.getElementById("lang-menu").classList.remove("show");
+    }
+  </script>
+</body>
+</html>

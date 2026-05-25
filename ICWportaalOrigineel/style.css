@@ -1,0 +1,195 @@
+/* ============================================================
+   ICW-portaal — shared stylesheet
+   Loaded by: index.html, leerpad.html, community.html, over-icw.html
+   (extra.html has its own black theme and only uses the
+   reset + box-sizing rules below — the rest is overridden.)
+   ============================================================ */
+
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1b1b32;
+  color: #f5f5f5;
+  line-height: 1.6;
+}
+
+/* ===== Header ===== */
+header {
+  background-color: #0a0a23;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f1be32;
+}
+
+.logo img {
+  height: 40px;
+  display: block;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ===== Language dropdown ===== */
+.lang {
+  position: relative;
+}
+
+.lang-btn {
+  background-color: #0a0a23;
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.lang-btn:hover {
+  background-color: #f1be32;
+  color: #0a0a23;
+}
+
+.lang-menu {
+  list-style: none;
+  position: absolute;
+  top: 42px;
+  right: 0;
+  background-color: #0a0a23;
+  border: 1px solid #3b3b4f;
+  border-radius: 4px;
+  min-width: 120px;
+  display: none;
+  z-index: 10;
+}
+
+.lang-menu.show {
+  display: block;
+}
+
+.lang-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background-color: transparent;
+  color: #f5f5f5;
+  text-align: left;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.lang-menu button:hover {
+  background-color: #1b1b32;
+  color: #f1be32;
+}
+
+/* ===== Burger menu ===== */
+nav {
+  position: relative;
+}
+
+.menu-btn {
+  background-color: #0a0a23;
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.menu-btn:hover {
+  background-color: #f1be32;
+  color: #0a0a23;
+}
+
+.menu {
+  list-style: none;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background-color: #0a0a23;
+  border: 1px solid #3b3b4f;
+  border-radius: 4px;
+  min-width: 280px;
+  display: none;
+  z-index: 10;
+}
+
+.menu.show {
+  display: block;
+}
+
+.menu a {
+  display: block;
+  padding: 12px 16px;
+  color: #f5f5f5;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.menu a:hover {
+  background-color: #1b1b32;
+  color: #f1be32;
+}
+
+.menu .free-tag {
+  display: inline-block;
+  margin-left: 8px;
+  color: #f1be32;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Footer ===== */
+footer {
+  background-color: #0a0a23;
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #d0d0d5;
+}
+
+.coffee-line {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #6a6a7a;
+}
+
+.coffee-line a {
+  color: #8a8a95;
+  text-decoration: none;
+}
+
+.coffee-line a:hover {
+  color: #f1be32;
+}
+
+/* ===== Mobile breakpoint (header only — pages add their own rules) ===== */
+@media (max-width: 700px) {
+  header {
+    padding: 12px 16px;
+  }
+
+  .logo img {
+    height: 32px;
+  }
+
+  .header-right {
+    gap: 8px;
+  }
+}

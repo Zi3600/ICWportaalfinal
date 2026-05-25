@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leerpad — ICW-portaal</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+
+  <style>
+.hero {
+      padding: 80px 24px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 { font-size: 42px; margin-bottom: 16px; }
+    .hero .accent { color: #f1be32; }
+    .hero p { font-size: 17px; color: #d0d0d5; margin-bottom: 12px; }
+
+    .timeline {
+      max-width: 900px;
+      margin: 40px auto 60px;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50px;
+      width: 3px;
+      background-color: #f1be32;
+    }
+
+    .step {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 60px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #f1be32;
+      color: #0a0a23;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      border: 4px solid #1b1b32;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-content {
+      flex: 1;
+      background-color: #0a0a23;
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      gap: 24px;
+    }
+
+    .logo-card {
+      flex: 1;
+      height: 170px;
+      border-radius: 4px;
+      min-width: 0;
+      background-color: #1b1b32;
+      border: 2px solid #3b3b4f;
+      text-decoration: none;
+      color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .logo-card:hover { border-color: #f1be32; background-color: #22223e; }
+
+    .logo-card img { width: 70px; height: 70px; margin-bottom: 12px; }
+    .logo-card .source { font-size: 12px; color: #f1be32; letter-spacing: 1px; margin-bottom: 4px; }
+    .logo-card .arrow { font-size: 13px; color: #d0d0d5; }
+
+    .step-text { flex: 1; }
+    .step-text h2 { font-size: 22px; margin-bottom: 8px; }
+    .step-text p { color: #d0d0d5; font-size: 14px; margin-bottom: 12px; }
+    .step-text ul { list-style: none; }
+    .step-text li {
+      padding: 4px 0 4px 20px;
+      position: relative;
+      color: #d0d0d5;
+      font-size: 14px;
+    }
+    .step-text li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #f1be32;
+    }
+
+    .project-section {
+      background-color: #0a0a23;
+      padding: 60px 24px;
+      text-align: center;
+      border-top: 2px solid #f1be32;
+      border-bottom: 2px solid #f1be32;
+    }
+
+    .project-section h2 { font-size: 32px; margin-bottom: 16px; }
+    .project-section .intro {
+      color: #d0d0d5;
+      max-width: 700px;
+      margin: 0 auto 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 28px;
+      background-color: #f1be32;
+      color: #0a0a23;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .btn:hover { background-color: #f5f5f5; }
+
+    .featured { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
+    .featured h2 { font-size: 26px; text-align: center; margin-bottom: 12px; }
+    .featured .prompt {
+      color: #d0d0d5;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      font-size: 15px;
+    }
+
+    .video-grid { display: flex; gap: 24px; justify-content: space-between; }
+    .video-card {
+      flex: 1;
+      background-color: #0a0a23;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .thumb {
+      height: 180px;
+      background-color: #3b3b4f;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d0d0d5;
+      font-size: 14px;
+      text-decoration: none;
+      border: 2px solid transparent;
+    }
+    .thumb:hover { background-color: #2b2b42; border-color: #f1be32; }
+    .thumb::before { content: "▶ klik hier"; }
+
+    .video-card h3 { font-size: 16px; color: #f1be32; margin-bottom: 6px; }
+    .video-card p { color: #d0d0d5; font-size: 13px; }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 28px; }
+      .hero { padding: 50px 20px; }
+      .timeline::before { left: 30px; }
+      .step { gap: 16px; }
+      .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        border-width: 3px;
+      }
+      .step-content { flex-direction: column; padding: 16px; }
+      .video-grid { flex-direction: column; }
+
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo"><img src="icw.png.png" alt="ICW-portaal"></a>
+    <div class="header-right">
+      <div class="lang">
+        <button class="lang-btn" onclick="toggleLang()">🌐</button>
+        <ul class="lang-menu" id="lang-menu">
+          <li><button onclick="setLang('nl')">Nederlands</button></li>
+          <li><button onclick="setLang('en')">English</button></li>
+          <li><button onclick="setLang('fr')">Français</button></li>
+        </ul>
+      </div>
+      <nav>
+        <button class="menu-btn" id="menu-btn" onclick="toggleMenu()">Menu ☰</button>
+        <ul class="menu" id="menu">
+          <li><a href="index.html" id="nav-home">Home</a></li>
+          <li><a href="leerpad.html" id="nav-path">Cursus <span class="free-tag" id="free-tag">← 100% gratis bronnen!</span></a></li>
+          <li><a href="over-icw.html" id="nav-about">Over ICW <span class="free-tag" id="test-tag">← Doe onze ICW test!</span></a></li>
+          <li><a href="community.html" id="nav-hackathon">Hackathon V1</a></li>
+          <li><a href="extra.html" id="nav-extra">Dev team</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1><span id="hero-h1a">Onze</span> <span class="accent" id="hero-h1b">kant-en-klare</span> <span id="hero-h1c">cursus van 3 tot 4 weken</span></h1>
+    <p id="hero-p1">We hebben een basiscursus voor je gebouwd uit bronnen die echt iets bijbrengen.</p>
+    <p id="hero-p2">Doorloop de drie stappen, bouw je eigen project, en maak kans op een echte beloning.</p>
+  </section>
+
+  <div class="timeline">
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <a class="logo-card" href="https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-html-by-building-a-cat-photo-app/step-1" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 logo">
+          <span class="source">FREECODECAMP</span>
+          <span class="arrow" id="arrow-1">Klik om te starten →</span>
+        </a>
+        <div class="step-text">
+          <h2 id="step1-h2">HTML: bouw een katten-site</h2>
+          <p id="step1-p">Begin met de freeCodeCamp katten-tutorial. Je leert HTML door zelf iets te bouwen, stap voor stap.</p>
+          <ul>
+            <li id="step1-li1">Tags, elementen en attributen</li>
+            <li id="step1-li2">Headings, paragrafen en lijsten</li>
+            <li id="step1-li3">Afbeeldingen en links toevoegen</li>
+            <li id="step1-li4">Je eerste echte pagina</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <a class="logo-card" href="https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-basic-css-by-building-a-cafe-menu/step-1" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 logo">
+          <span class="source">FREECODECAMP</span>
+          <span class="arrow" id="arrow-2">Klik om te starten →</span>
+        </a>
+        <div class="step-text">
+          <h2 id="step2-h2">CSS: maak het mooi</h2>
+          <p id="step2-p">Bouw een café-menu en leer ondertussen CSS. Je ziet meteen wat elke regel op het scherm doet.</p>
+          <ul>
+            <li id="step2-li1">Kleuren, fonts en spacing</li>
+            <li id="step2-li2">Het box model</li>
+            <li id="step2-li3">Selectors en eigenschappen</li>
+            <li id="step2-li4">Een hele pagina stylen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <a class="logo-card" href="https://medium.com/@cyrilbassey/navigating-javascript-my-journey-to-building-a-simple-calculator-088146f45f85" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript logo">
+          <span class="source" id="medium-source">MEDIUM ARTIKEL</span>
+          <span class="arrow" id="arrow-3">Klik om te lezen →</span>
+        </a>
+        <div class="step-text">
+          <h2 id="step3-h2">JavaScript: laat het rekenen</h2>
+          <p id="step3-p">Lees dit artikel en bouw mee. Snap je iets niet? Vraag ChatGPT of Claude om uitleg — dat is op zich al een vaardigheid.</p>
+          <ul>
+            <li id="step3-li1">Variabelen en getallen</li>
+            <li id="step3-li2">Functies schrijven</li>
+            <li id="step3-li3">Knoppen die iets doen (event listeners)</li>
+            <li id="step3-li4">AI gebruiken om code te begrijpen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <section class="project-section">
+    <h2 id="project-h2">★ Jouw eindproject</h2>
+    <p class="intro" id="project-p1">Klaar voor de uitdaging? Bouw je eigen site met wat je geleerd hebt en lever 'm in voor de jaarlijkse competitie.</p>
+    <p class="intro" id="project-p2">De winnaar krijgt een prijs, een certificaat, en een vermelding op het portaal.</p>
+    <a href="community.html" class="btn" id="project-btn">Bekijk de competitie →</a>
+  </section>
+
+  <section class="featured">
+    <h2 id="featured-h2">Nog meer video's om uit te kiezen</h2>
+    <p class="prompt" id="featured-p">Er staan duizenden HTML- en CSS-video's op YouTube. Schat zelf in welke stijl bij je past en kies eentje hieronder.</p>
+
+    <div class="video-grid">
+      <div class="video-card">
+        <a href="#" class="thumb" aria-label="Video 1"></a>
+        <h3 id="vid1-h3">Creatieve discipline</h3>
+        <p id="vid1-p">Voor mensen die het liefst leren door te experimenteren en visueel bezig te zijn.</p>
+      </div>
+
+      <div class="video-card">
+        <a href="#" class="thumb" aria-label="Video 2"></a>
+        <h3 id="vid2-h3">Lang en grondig</h3>
+        <p id="vid2-p">Voor mensen die rustig willen werken en alles stap voor stap willen snappen.</p>
+      </div>
+
+      <div class="video-card">
+        <a href="#" class="thumb" aria-label="Video 3"></a>
+        <h3 id="vid3-h3">Strak en gedisciplineerd</h3>
+        <p id="vid3-p">Voor mensen die strak en gestructureerd willen werken zoals een echte developer.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 ICW-portaal — <span id="footer-credit">gemaakt door studenten, voor studenten.</span></p>
+  </footer>
+
+  <script>
+
+    function setLang(lang) {
+
+      // === Dutch ===
+      if (lang === "nl") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Home";
+        document.getElementById("nav-path").innerHTML = 'Cursus <span class="free-tag" id="free-tag">← 100% gratis bronnen!</span>';
+        document.getElementById("nav-about").innerHTML = 'Over ICW <span class="free-tag" id="test-tag">← Doe onze ICW test!</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-h1a").textContent = "Onze";
+        document.getElementById("hero-h1b").textContent = "kant-en-klare";
+        document.getElementById("hero-h1c").textContent = "cursus van 3 tot 4 weken";
+        document.getElementById("hero-p1").textContent = "We hebben een basiscursus voor je gebouwd uit bronnen die echt iets bijbrengen.";
+        document.getElementById("hero-p2").textContent = "Doorloop de drie stappen, bouw je eigen project, en maak kans op een echte beloning.";
+
+        document.getElementById("arrow-1").textContent = "Klik om te starten →";
+        document.getElementById("arrow-2").textContent = "Klik om te starten →";
+        document.getElementById("arrow-3").textContent = "Klik om te lezen →";
+        document.getElementById("medium-source").textContent = "MEDIUM ARTIKEL";
+
+        document.getElementById("step1-h2").textContent = "HTML: bouw een katten-site";
+        document.getElementById("step1-p").textContent = "Begin met de freeCodeCamp katten-tutorial. Je leert HTML door zelf iets te bouwen, stap voor stap.";
+        document.getElementById("step1-li1").textContent = "Tags, elementen en attributen";
+        document.getElementById("step1-li2").textContent = "Headings, paragrafen en lijsten";
+        document.getElementById("step1-li3").textContent = "Afbeeldingen en links toevoegen";
+        document.getElementById("step1-li4").textContent = "Je eerste echte pagina";
+
+        document.getElementById("step2-h2").textContent = "CSS: maak het mooi";
+        document.getElementById("step2-p").textContent = "Bouw een café-menu en leer ondertussen CSS. Je ziet meteen wat elke regel op het scherm doet.";
+        document.getElementById("step2-li1").textContent = "Kleuren, fonts en spacing";
+        document.getElementById("step2-li2").textContent = "Het box model";
+        document.getElementById("step2-li3").textContent = "Selectors en eigenschappen";
+        document.getElementById("step2-li4").textContent = "Een hele pagina stylen";
+
+        document.getElementById("step3-h2").textContent = "JavaScript: laat het rekenen";
+        document.getElementById("step3-p").textContent = "Lees dit artikel en bouw mee. Snap je iets niet? Vraag ChatGPT of Claude om uitleg — dat is op zich al een vaardigheid.";
+        document.getElementById("step3-li1").textContent = "Variabelen en getallen";
+        document.getElementById("step3-li2").textContent = "Functies schrijven";
+        document.getElementById("step3-li3").textContent = "Knoppen die iets doen (event listeners)";
+        document.getElementById("step3-li4").textContent = "AI gebruiken om code te begrijpen";
+
+        document.getElementById("project-h2").textContent = "★ Jouw eindproject";
+        document.getElementById("project-p1").textContent = "Klaar voor de uitdaging? Bouw je eigen site met wat je geleerd hebt en lever 'm in voor de jaarlijkse competitie.";
+        document.getElementById("project-p2").textContent = "De winnaar krijgt een prijs, een certificaat, en een vermelding op het portaal.";
+        document.getElementById("project-btn").textContent = "Bekijk de competitie →";
+
+        document.getElementById("featured-h2").textContent = "Nog meer video's om uit te kiezen";
+        document.getElementById("featured-p").textContent = "Er staan duizenden HTML- en CSS-video's op YouTube. Schat zelf in welke stijl bij je past en kies eentje hieronder.";
+        document.getElementById("vid1-h3").textContent = "Creatieve discipline";
+        document.getElementById("vid1-p").textContent = "Voor mensen die het liefst leren door te experimenteren en visueel bezig te zijn.";
+        document.getElementById("vid2-h3").textContent = "Lang en grondig";
+        document.getElementById("vid2-p").textContent = "Voor mensen die rustig willen werken en alles stap voor stap willen snappen.";
+        document.getElementById("vid3-h3").textContent = "Strak en gedisciplineerd";
+        document.getElementById("vid3-p").textContent = "Voor mensen die strak en gestructureerd willen werken zoals een echte developer.";
+
+        document.getElementById("footer-credit").textContent = "gemaakt door studenten, voor studenten.";
+      }
+
+      // === English ===
+      else if (lang === "en") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Home";
+        document.getElementById("nav-path").innerHTML = 'Course <span class="free-tag" id="free-tag">← 100% free sources!</span>';
+        document.getElementById("nav-about").innerHTML = 'About ICW <span class="free-tag" id="test-tag">← Take our ICW test!</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-h1a").textContent = "Our";
+        document.getElementById("hero-h1b").textContent = "ready-to-go";
+        document.getElementById("hero-h1c").textContent = "course of 3 to 4 weeks";
+        document.getElementById("hero-p1").textContent = "We built a basic course for you with sources that actually teach you something.";
+        document.getElementById("hero-p2").textContent = "Go through the three steps, build your own project, and have a chance at a real prize.";
+
+        document.getElementById("arrow-1").textContent = "Click to start →";
+        document.getElementById("arrow-2").textContent = "Click to start →";
+        document.getElementById("arrow-3").textContent = "Click to read →";
+        document.getElementById("medium-source").textContent = "MEDIUM ARTICLE";
+
+        document.getElementById("step1-h2").textContent = "HTML: build a cat site";
+        document.getElementById("step1-p").textContent = "Start with the freeCodeCamp cat tutorial. You learn HTML by building something yourself, step by step.";
+        document.getElementById("step1-li1").textContent = "Tags, elements and attributes";
+        document.getElementById("step1-li2").textContent = "Headings, paragraphs and lists";
+        document.getElementById("step1-li3").textContent = "Adding images and links";
+        document.getElementById("step1-li4").textContent = "Your first real page";
+
+        document.getElementById("step2-h2").textContent = "CSS: make it look good";
+        document.getElementById("step2-p").textContent = "Build a cafe menu and learn CSS along the way. You see right away what each line does on screen.";
+        document.getElementById("step2-li1").textContent = "Colors, fonts and spacing";
+        document.getElementById("step2-li2").textContent = "The box model";
+        document.getElementById("step2-li3").textContent = "Selectors and properties";
+        document.getElementById("step2-li4").textContent = "Styling a whole page";
+
+        document.getElementById("step3-h2").textContent = "JavaScript: make it calculate";
+        document.getElementById("step3-p").textContent = "Read this article and build along. Don't get something? Ask ChatGPT or Claude to explain — that's a skill on its own.";
+        document.getElementById("step3-li1").textContent = "Variables and numbers";
+        document.getElementById("step3-li2").textContent = "Writing functions";
+        document.getElementById("step3-li3").textContent = "Buttons that do stuff (event listeners)";
+        document.getElementById("step3-li4").textContent = "Using AI to understand code";
+
+        document.getElementById("project-h2").textContent = "★ Your final project";
+        document.getElementById("project-p1").textContent = "Ready for the challenge? Build your own site with what you learned and submit it for the yearly competition.";
+        document.getElementById("project-p2").textContent = "The winner gets a prize, a certificate, and a shoutout on the portal.";
+        document.getElementById("project-btn").textContent = "See the competition →";
+
+        document.getElementById("featured-h2").textContent = "More videos to choose from";
+        document.getElementById("featured-p").textContent = "There are thousands of HTML and CSS videos on YouTube. Figure out which style fits you and pick one below.";
+        document.getElementById("vid1-h3").textContent = "Creative discipline";
+        document.getElementById("vid1-p").textContent = "For people who learn best by experimenting and being visual.";
+        document.getElementById("vid2-h3").textContent = "Long and thorough";
+        document.getElementById("vid2-p").textContent = "For people who want to work calmly and understand everything step by step.";
+        document.getElementById("vid3-h3").textContent = "Tight and disciplined";
+        document.getElementById("vid3-p").textContent = "For people who want to work tight and structured like a real developer.";
+
+        document.getElementById("footer-credit").textContent = "made by students, for students.";
+      }
+
+      // === French ===
+      else if (lang === "fr") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Accueil";
+        document.getElementById("nav-path").innerHTML = 'Cours <span class="free-tag" id="free-tag">← 100% sources gratuites !</span>';
+        document.getElementById("nav-about").innerHTML = 'À propos d\'ICW <span class="free-tag" id="test-tag">← Fais notre test ICW !</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-h1a").textContent = "Notre";
+        document.getElementById("hero-h1b").textContent = "prêt-à-l'emploi";
+        document.getElementById("hero-h1c").textContent = "cours de 3 à 4 semaines";
+        document.getElementById("hero-p1").textContent = "On a construit un cours de base avec des sources qui t'apprennent vraiment des trucs.";
+        document.getElementById("hero-p2").textContent = "Fais les trois étapes, construis ton propre projet, et tente de gagner un vrai prix.";
+
+        document.getElementById("arrow-1").textContent = "Clique pour commencer →";
+        document.getElementById("arrow-2").textContent = "Clique pour commencer →";
+        document.getElementById("arrow-3").textContent = "Clique pour lire →";
+        document.getElementById("medium-source").textContent = "ARTICLE MEDIUM";
+
+        document.getElementById("step1-h2").textContent = "HTML : construis un site de chats";
+        document.getElementById("step1-p").textContent = "Commence avec le tuto chat de freeCodeCamp. T'apprends le HTML en construisant un truc toi-même, étape par étape.";
+        document.getElementById("step1-li1").textContent = "Tags, éléments et attributs";
+        document.getElementById("step1-li2").textContent = "Titres, paragraphes et listes";
+        document.getElementById("step1-li3").textContent = "Ajouter des images et des liens";
+        document.getElementById("step1-li4").textContent = "Ta première vraie page";
+
+        document.getElementById("step2-h2").textContent = "CSS : rends-le joli";
+        document.getElementById("step2-p").textContent = "Construis un menu de café et apprends le CSS en même temps. Tu vois direct ce que chaque ligne fait à l'écran.";
+        document.getElementById("step2-li1").textContent = "Couleurs, polices et espacement";
+        document.getElementById("step2-li2").textContent = "Le box model";
+        document.getElementById("step2-li3").textContent = "Sélecteurs et propriétés";
+        document.getElementById("step2-li4").textContent = "Styler une page entière";
+
+        document.getElementById("step3-h2").textContent = "JavaScript : fais-le calculer";
+        document.getElementById("step3-p").textContent = "Lis cet article et construis en suivant. Tu comprends pas un truc ? Demande à ChatGPT ou Claude — c'est déjà une compétence en soi.";
+        document.getElementById("step3-li1").textContent = "Variables et nombres";
+        document.getElementById("step3-li2").textContent = "Écrire des fonctions";
+        document.getElementById("step3-li3").textContent = "Des boutons qui font des trucs (event listeners)";
+        document.getElementById("step3-li4").textContent = "Utiliser l'IA pour comprendre du code";
+
+        document.getElementById("project-h2").textContent = "★ Ton projet final";
+        document.getElementById("project-p1").textContent = "Prêt pour le défi ? Construis ton propre site avec ce que t'as appris et soumets-le pour la compétition annuelle.";
+        document.getElementById("project-p2").textContent = "Le gagnant reçoit un prix, un certificat, et une mention sur le portail.";
+        document.getElementById("project-btn").textContent = "Voir la compétition →";
+
+        document.getElementById("featured-h2").textContent = "D'autres vidéos au choix";
+        document.getElementById("featured-p").textContent = "Il y a des milliers de vidéos HTML et CSS sur YouTube. Trouve le style qui te correspond et choisis-en une ci-dessous.";
+        document.getElementById("vid1-h3").textContent = "Discipline créative";
+        document.getElementById("vid1-p").textContent = "Pour ceux qui apprennent mieux en expérimentant et en étant visuels.";
+        document.getElementById("vid2-h3").textContent = "Long et complet";
+        document.getElementById("vid2-p").textContent = "Pour ceux qui veulent bosser tranquillement et tout comprendre étape par étape.";
+        document.getElementById("vid3-h3").textContent = "Carré et discipliné";
+        document.getElementById("vid3-p").textContent = "Pour ceux qui veulent bosser carré et structuré comme un vrai dev.";
+
+        document.getElementById("footer-credit").textContent = "fait par des étudiants, pour des étudiants.";
+      }
+
+      localStorage.setItem("icw-lang", lang);
+      document.getElementById("lang-menu").classList.remove("show");
+    }
+  </script>
+</body>
+</html>

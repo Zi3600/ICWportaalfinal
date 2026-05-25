@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Over ICW — ICW-portaal</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #1b1b32;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #0a0a23;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1be32;
+    }
+
+    .logo img { height: 40px; display: block; }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+
+    .lang { position: relative; }
+
+    .lang-btn {
+      background-color: #0a0a23;
+      color: #f5f5f5;
+      border: 1px solid #f5f5f5;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .lang-btn:hover { background-color: #f1be32; color: #0a0a23; }
+
+    .lang-menu {
+      list-style: none;
+      position: absolute;
+      top: 42px;
+      right: 0;
+      background-color: #0a0a23;
+      border: 1px solid #3b3b4f;
+      border-radius: 4px;
+      min-width: 120px;
+      display: none;
+      z-index: 10;
+    }
+
+    .lang-menu.show { display: block; }
+
+    .lang-menu button {
+      display: block;
+      width: 100%;
+      padding: 10px 16px;
+      background-color: transparent;
+      color: #f5f5f5;
+      text-align: left;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .lang-menu button:hover { background-color: #1b1b32; color: #f1be32; }
+
+    nav { position: relative; }
+
+    .menu-btn {
+      background-color: #0a0a23;
+      color: #f5f5f5;
+      border: 1px solid #f5f5f5;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .menu-btn:hover { background-color: #f1be32; color: #0a0a23; }
+
+    .menu {
+      list-style: none;
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background-color: #0a0a23;
+      border: 1px solid #3b3b4f;
+      border-radius: 4px;
+      min-width: 280px;
+      display: none;
+      z-index: 10;
+    }
+
+    .menu.show { display: block; }
+
+    .menu .free-tag {
+      display: inline-block;
+      margin-left: 8px;
+      color: #f1be32;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .menu a {
+      display: block;
+      padding: 12px 16px;
+      color: #f5f5f5;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .menu a:hover { background-color: #1b1b32; color: #f1be32; }
+
+    section { padding: 80px 24px; max-width: 800px; margin: 0 auto; }
+
+    .alt-bg {
+      background-color: #0a0a23;
+      max-width: none;
+      padding: 80px 24px;
+    }
+
+    .alt-bg .inner { max-width: 800px; margin: 0 auto; }
+
+    h1 { font-size: 38px; margin-bottom: 16px; }
+    h2 { font-size: 28px; margin-bottom: 16px; }
+    .accent { color: #f1be32; }
+
+    p { color: #d0d0d5; font-size: 16px; margin-bottom: 14px; }
+
+    .scroll-hint {
+      color: #f1be32;
+      font-style: italic;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .facts { list-style: none; margin: 12px 0 20px; }
+    .facts li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      color: #d0d0d5;
+      font-size: 15px;
+    }
+    .facts li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #f1be32;
+    }
+    .facts strong { color: #f5f5f5; }
+
+    .quiz { margin-top: 24px; }
+    .question { margin-bottom: 24px; }
+    .q-label {
+      font-size: 15px;
+      color: #f5f5f5;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    .options label {
+      display: inline-block;
+      margin-right: 16px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      color: #d0d0d5;
+      font-size: 14px;
+    }
+    .question input[type="radio"] { margin-right: 6px; accent-color: #f1be32; }
+
+    .quiz-btn {
+      padding: 12px 24px;
+      background-color: #f1be32;
+      color: #0a0a23;
+      border: none;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .quiz-btn:hover { background-color: #f5f5f5; }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      border-left: 3px solid #f1be32;
+      background-color: #1b1b32;
+      display: none;
+    }
+    .result.show { display: block; }
+    .result h3 { color: #f1be32; margin-bottom: 8px; font-size: 18px; }
+
+    .result-tips { list-style: none; margin-top: 16px; padding: 0; }
+    .result-tips li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      color: #d0d0d5;
+      font-size: 14px;
+      border-top: 1px solid #2a2a44;
+    }
+    .result-tips li:first-child { border-top: none; }
+    .result-tips li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #f1be32;
+    }
+
+    .cta { text-align: center; padding: 60px 24px; }
+
+    .btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 14px 28px;
+      background-color: #f1be32;
+      color: #0a0a23;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .btn:hover { background-color: #f5f5f5; }
+
+    footer {
+      background-color: #0a0a23;
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #d0d0d5;
+    }
+
+    @media (max-width: 600px) {
+      section, .alt-bg { padding: 50px 18px; }
+      h1 { font-size: 26px; }
+      h2 { font-size: 22px; }
+      .header-right { gap: 8px; }
+      .logo img { height: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo"><img src="icw.png.png" alt="ICW-portaal"></a>
+    <div class="header-right">
+      <div class="lang">
+        <button class="lang-btn" onclick="toggleLang()">🌐</button>
+        <ul class="lang-menu" id="lang-menu">
+          <li><button onclick="setLang('nl')">Nederlands</button></li>
+          <li><button onclick="setLang('en')">English</button></li>
+          <li><button onclick="setLang('fr')">Français</button></li>
+        </ul>
+      </div>
+      <nav>
+        <button class="menu-btn" id="menu-btn" onclick="toggleMenu()">Menu ☰</button>
+        <ul class="menu" id="menu">
+          <li><a href="index.html" id="nav-home">Home</a></li>
+          <li><a href="leerpad.html" id="nav-path">Cursus <span class="free-tag" id="free-tag">← 100% gratis bronnen!</span></a></li>
+          <li><a href="over-icw.html" id="nav-about">Over ICW <span class="free-tag" id="test-tag">← Doe onze ICW test!</span></a></li>
+          <li><a href="community.html" id="nav-hackathon">Hackathon V1</a></li>
+          <li><a href="extra.html" id="nav-extra">Dev team</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section>
+    <h1><span id="sec1-h1a">Over het</span> <span class="accent" id="sec1-h1b">ICW-portaal</span></h1>
+    <p id="sec1-p1">Dit portaal begon als eindwerk van drie laatstejaars. Telkens iemand vroeg wat onze richting precies inhield, moesten we het van nul uitleggen. ICW was vrij nieuw op school en weinig mensen wisten wat het was.</p>
+    <p id="sec1-p2">In plaats van dat steeds opnieuw uit te leggen, bouwden we een site die het werk voor ons doet. Een plek waar je gewoon doorklikt als je nieuwsgierig bent. Dat groeide uit tot dit portaal.</p>
+    <p class="scroll-hint" id="scroll-hint">Vind je het er leuk uitzien? Scroll dan zeker verder ↓</p>
+  </section>
+
+  <section class="alt-bg">
+    <div class="inner">
+      <h2 id="sec2-h2">Waarom ICW?</h2>
+      <p id="sec2-p1">ICW staat voor <strong style="color: #f5f5f5;">Informatica- en Communicatiewetenschappen</strong>. Het is een <strong style="color: #f5f5f5;">domeingebonden doorstroomrichting</strong> in de derde graad — wat betekent dat je voorbereid wordt op het hoger onderwijs binnen STEM (universiteit of hogeschool).</p>
+      <p id="sec2-p2">Je leert niet alleen hoe technologie werkt, maar ook hoe je zelf systemen, software en oplossingen bouwt op middelbaar niveau.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="sec3-h2">Op welke vakken ligt de focus?</h2>
+    <p id="sec3-p1">ICW draait om drie kernpijlers:</p>
+    <ul class="facts">
+      <li id="sec3-li1"><strong>Informatica</strong> — programmeren, systeembeheer, netwerken, datacommunicatie</li>
+      <li id="sec3-li2"><strong>Wiskunde</strong> — logisch en analytisch denken op een stevig niveau</li>
+      <li id="sec3-li3"><strong>Toegepaste fysica</strong> — elektromagnetisme, elektrodynamica, elektronica</li>
+    </ul>
+    <p id="sec3-p2">Het is dus geen "leren programmeren"-richting in de losse zin. Het is een stevige STEM-opleiding waar informatica één van drie pijlers is.</p>
+  </section>
+
+  <section class="alt-bg">
+    <div class="inner">
+      <h2><span id="quiz-h2a">Is ICW iets voor jou?</span> <span class="accent" id="quiz-h2b">Doe de test.</span></h2>
+      <p id="quiz-intro">Vijf simpele vragen. Geen wetenschap, gewoon een eerlijke check.</p>
+
+      <form class="quiz" id="quiz">
+
+        <div class="question">
+          <div class="q-label" id="q1-label">1. Heb je interesse in informatica?</div>
+          <div class="options">
+            <label><input type="radio" name="q1" value="2" required> <span class="ans-yes">Ja</span></label>
+            <label><input type="radio" name="q1" value="1"> <span class="ans-kinda">Een beetje</span></label>
+            <label><input type="radio" name="q1" value="0"> <span class="ans-no">Nee</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-label" id="q2-label">2. Ben je wiskundig sterk?</div>
+          <div class="options">
+            <label><input type="radio" name="q2" value="2" required> <span class="ans-yes">Ja</span></label>
+            <label><input type="radio" name="q2" value="1"> <span class="ans-kinda">Een beetje</span></label>
+            <label><input type="radio" name="q2" value="0"> <span class="ans-no">Nee</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-label" id="q3-label">3. Vind je technologie boeiend?</div>
+          <div class="options">
+            <label><input type="radio" name="q3" value="2" required> <span class="ans-yes">Ja</span></label>
+            <label><input type="radio" name="q3" value="1"> <span class="ans-kinda">Een beetje</span></label>
+            <label><input type="radio" name="q3" value="0"> <span class="ans-no">Nee</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-label" id="q4-label">4. Werk je goed analytisch en probleemoplossend?</div>
+          <div class="options">
+            <label><input type="radio" name="q4" value="2" required> <span class="ans-yes">Ja</span></label>
+            <label><input type="radio" name="q4" value="1"> <span class="ans-kinda">Een beetje</span></label>
+            <label><input type="radio" name="q4" value="0"> <span class="ans-no">Nee</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="q-label" id="q5-label">5. Ben je bereid je vast te bijten in nieuwe leerstof?</div>
+          <div class="options">
+            <label><input type="radio" name="q5" value="2" required> <span class="ans-yes">Ja</span></label>
+            <label><input type="radio" name="q5" value="1"> <span class="ans-kinda">Een beetje</span></label>
+            <label><input type="radio" name="q5" value="0"> <span class="ans-no">Nee</span></label>
+          </div>
+        </div>
+
+        <button type="submit" class="quiz-btn" id="quiz-btn">Bekijk resultaat</button>
+      </form>
+
+      <div class="result" id="result">
+        <h3 id="result-title"></h3>
+        <p id="result-text"></p>
+        <ul id="result-tips" class="result-tips"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="sec5-h2">Wat na ICW?</h2>
+    <p id="sec5-p">Je kan doorstromen naar professionele of academische bachelors binnen STEM, bijvoorbeeld:</p>
+    <ul class="facts">
+      <li id="sec5-li1">Toegepaste Informatica (professionele bachelor)</li>
+      <li id="sec5-li2">Elektronica-ICT (professionele bachelor)</li>
+      <li id="sec5-li3">Industriële wetenschappen (academische bachelor)</li>
+      <li id="sec5-li4">Computerwetenschappen (academische bachelor)</li>
+    </ul>
+  </section>
+
+  <section class="cta">
+    <h2 id="cta-h2">Klaar om iets te proberen?</h2>
+    <p id="cta-p">Bekijk ons gratis leerpad om alvast met de basis te starten.</p>
+    <a href="leerpad.html" class="btn" id="cta-btn">Bekijk het leerpad →</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 ICW-portaal — <span id="footer-credit">gemaakt door studenten, voor studenten.</span></p>
+  </footer>
+
+  <script>
+    // === Menu and language toggle helpers ===
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("show");
+    }
+
+    function toggleLang() {
+      document.getElementById("lang-menu").classList.toggle("show");
+    }
+
+    // === Helper: change every "Ja" / "Een beetje" / "Nee" label at once ===
+    // We have many of these spans in the quiz so we loop with a regular for-loop.
+    function setAnswerLabels(yes, kinda, no) {
+      let yesLabels = document.getElementsByClassName("ans-yes");
+      for (let i = 0; i < yesLabels.length; i++) {
+        yesLabels[i].textContent = yes;
+      }
+      let kindaLabels = document.getElementsByClassName("ans-kinda");
+      for (let i = 0; i < kindaLabels.length; i++) {
+        kindaLabels[i].textContent = kinda;
+      }
+      let noLabels = document.getElementsByClassName("ans-no");
+      for (let i = 0; i < noLabels.length; i++) {
+        noLabels[i].textContent = no;
+      }
+    }
+
+    // === Change the language of the whole page ===
+    function setLang(lang) {
+
+      // === Dutch ===
+      if (lang === "nl") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Home";
+        document.getElementById("nav-path").innerHTML = 'Cursus <span class="free-tag" id="free-tag">← 100% gratis bronnen!</span>';
+        document.getElementById("nav-about").innerHTML = 'Over ICW <span class="free-tag" id="test-tag">← Doe onze ICW test!</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("sec1-h1a").textContent = "Over het";
+        document.getElementById("sec1-h1b").textContent = "ICW-portaal";
+        document.getElementById("sec1-p1").textContent = "Dit portaal begon als eindwerk van drie laatstejaars. Telkens iemand vroeg wat onze richting precies inhield, moesten we het van nul uitleggen. ICW was vrij nieuw op school en weinig mensen wisten wat het was.";
+        document.getElementById("sec1-p2").textContent = "In plaats van dat steeds opnieuw uit te leggen, bouwden we een site die het werk voor ons doet. Een plek waar je gewoon doorklikt als je nieuwsgierig bent. Dat groeide uit tot dit portaal.";
+        document.getElementById("scroll-hint").textContent = "Vind je het er leuk uitzien? Scroll dan zeker verder ↓";
+
+        document.getElementById("sec2-h2").textContent = "Waarom ICW?";
+        document.getElementById("sec2-p1").innerHTML = "ICW staat voor <strong style=\"color: #f5f5f5;\">Informatica- en Communicatiewetenschappen</strong>. Het is een <strong style=\"color: #f5f5f5;\">domeingebonden doorstroomrichting</strong> in de derde graad — wat betekent dat je voorbereid wordt op het hoger onderwijs binnen STEM (universiteit of hogeschool).";
+        document.getElementById("sec2-p2").textContent = "Je leert niet alleen hoe technologie werkt, maar ook hoe je zelf systemen, software en oplossingen bouwt op middelbaar niveau.";
+
+        document.getElementById("sec3-h2").textContent = "Op welke vakken ligt de focus?";
+        document.getElementById("sec3-p1").textContent = "ICW draait om drie kernpijlers:";
+        document.getElementById("sec3-li1").innerHTML = "<strong>Informatica</strong> — programmeren, systeembeheer, netwerken, datacommunicatie";
+        document.getElementById("sec3-li2").innerHTML = "<strong>Wiskunde</strong> — logisch en analytisch denken op een stevig niveau";
+        document.getElementById("sec3-li3").innerHTML = "<strong>Toegepaste fysica</strong> — elektromagnetisme, elektrodynamica, elektronica";
+        document.getElementById("sec3-p2").textContent = "Het is dus geen \"leren programmeren\"-richting in de losse zin. Het is een stevige STEM-opleiding waar informatica één van drie pijlers is.";
+
+        document.getElementById("quiz-h2a").textContent = "Is ICW iets voor jou?";
+        document.getElementById("quiz-h2b").textContent = "Doe de test.";
+        document.getElementById("quiz-intro").textContent = "Vijf simpele vragen. Geen wetenschap, gewoon een eerlijke check.";
+
+        document.getElementById("q1-label").textContent = "1. Heb je interesse in informatica?";
+        document.getElementById("q2-label").textContent = "2. Ben je wiskundig sterk?";
+        document.getElementById("q3-label").textContent = "3. Vind je technologie boeiend?";
+        document.getElementById("q4-label").textContent = "4. Werk je goed analytisch en probleemoplossend?";
+        document.getElementById("q5-label").textContent = "5. Ben je bereid je vast te bijten in nieuwe leerstof?";
+
+        setAnswerLabels("Ja", "Een beetje", "Nee");
+
+        document.getElementById("quiz-btn").textContent = "Bekijk resultaat";
+
+        document.getElementById("sec5-h2").textContent = "Wat na ICW?";
+        document.getElementById("sec5-p").textContent = "Je kan doorstromen naar professionele of academische bachelors binnen STEM, bijvoorbeeld:";
+        document.getElementById("sec5-li1").textContent = "Toegepaste Informatica (professionele bachelor)";
+        document.getElementById("sec5-li2").textContent = "Elektronica-ICT (professionele bachelor)";
+        document.getElementById("sec5-li3").textContent = "Industriële wetenschappen (academische bachelor)";
+        document.getElementById("sec5-li4").textContent = "Computerwetenschappen (academische bachelor)";
+
+        document.getElementById("cta-h2").textContent = "Klaar om iets te proberen?";
+        document.getElementById("cta-p").textContent = "Bekijk ons gratis leerpad om alvast met de basis te starten.";
+        document.getElementById("cta-btn").textContent = "Bekijk het leerpad →";
+
+        document.getElementById("footer-credit").textContent = "gemaakt door studenten, voor studenten.";
+      }
+
+      // === English ===
+      else if (lang === "en") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Home";
+        document.getElementById("nav-path").innerHTML = 'Course <span class="free-tag" id="free-tag">← 100% free sources!</span>';
+        document.getElementById("nav-about").innerHTML = 'About ICW <span class="free-tag" id="test-tag">← Take our ICW test!</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("sec1-h1a").textContent = "About the";
+        document.getElementById("sec1-h1b").textContent = "ICW portal";
+        document.getElementById("sec1-p1").textContent = "This portal started as a final project from three seniors. Every time someone asked what our track was about, we had to explain from scratch. ICW was pretty new at school and not many people knew what it was.";
+        document.getElementById("sec1-p2").textContent = "Instead of explaining it over and over, we built a site that does the work for us. A place you can just click through if you're curious. That grew into this portal.";
+        document.getElementById("scroll-hint").textContent = "Looking alright? Keep scrolling ↓";
+
+        document.getElementById("sec2-h2").textContent = "Why ICW?";
+        document.getElementById("sec2-p1").innerHTML = "ICW stands for <strong style=\"color: #f5f5f5;\">Computer and Communication Sciences</strong>. It's a <strong style=\"color: #f5f5f5;\">domain-specific academic track</strong> in the last grades of secondary school — meaning you're prepped for higher education in STEM (university or college).";
+        document.getElementById("sec2-p2").textContent = "You don't just learn how technology works — you also learn how to build systems, software and solutions yourself at a secondary level.";
+
+        document.getElementById("sec3-h2").textContent = "What subjects are the focus?";
+        document.getElementById("sec3-p1").textContent = "ICW is built on three core pillars:";
+        document.getElementById("sec3-li1").innerHTML = "<strong>Computer science</strong> — programming, system admin, networks, data communication";
+        document.getElementById("sec3-li2").innerHTML = "<strong>Math</strong> — logical and analytical thinking at a solid level";
+        document.getElementById("sec3-li3").innerHTML = "<strong>Applied physics</strong> — electromagnetism, electrodynamics, electronics";
+        document.getElementById("sec3-p2").textContent = "So it's not a \"just learn to code\" track. It's a solid STEM program where computer science is one of three pillars.";
+
+        document.getElementById("quiz-h2a").textContent = "Is ICW for you?";
+        document.getElementById("quiz-h2b").textContent = "Take the quiz.";
+        document.getElementById("quiz-intro").textContent = "Five simple questions. Not science, just an honest check.";
+
+        document.getElementById("q1-label").textContent = "1. Are you interested in computer science?";
+        document.getElementById("q2-label").textContent = "2. Are you strong in math?";
+        document.getElementById("q3-label").textContent = "3. Do you find technology interesting?";
+        document.getElementById("q4-label").textContent = "4. Are you good at analytical and problem-solving thinking?";
+        document.getElementById("q5-label").textContent = "5. Are you willing to bite into new material?";
+
+        setAnswerLabels("Yes", "A bit", "No");
+
+        document.getElementById("quiz-btn").textContent = "See result";
+
+        document.getElementById("sec5-h2").textContent = "What after ICW?";
+        document.getElementById("sec5-p").textContent = "You can move on to professional or academic bachelors in STEM, for example:";
+        document.getElementById("sec5-li1").textContent = "Applied Informatics (professional bachelor)";
+        document.getElementById("sec5-li2").textContent = "Electronics-ICT (professional bachelor)";
+        document.getElementById("sec5-li3").textContent = "Industrial Sciences (academic bachelor)";
+        document.getElementById("sec5-li4").textContent = "Computer Science (academic bachelor)";
+
+        document.getElementById("cta-h2").textContent = "Ready to try something?";
+        document.getElementById("cta-p").textContent = "Check out our free course to start with the basics.";
+        document.getElementById("cta-btn").textContent = "See the course →";
+
+        document.getElementById("footer-credit").textContent = "made by students, for students.";
+      }
+
+      // === French ===
+      else if (lang === "fr") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Accueil";
+        document.getElementById("nav-path").innerHTML = 'Cours <span class="free-tag" id="free-tag">← 100% sources gratuites !</span>';
+        document.getElementById("nav-about").innerHTML = 'À propos d\'ICW <span class="free-tag" id="test-tag">← Fais notre test ICW !</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("sec1-h1a").textContent = "À propos du";
+        document.getElementById("sec1-h1b").textContent = "portail ICW";
+        document.getElementById("sec1-p1").textContent = "Ce portail a commencé comme projet de fin d'études de trois élèves de dernière année. À chaque fois qu'on nous demandait c'était quoi notre option, on devait l'expliquer de zéro. ICW était assez nouveau dans l'école et peu de monde savait ce que c'était.";
+        document.getElementById("sec1-p2").textContent = "Au lieu de l'expliquer encore et encore, on a construit un site qui fait le boulot pour nous. Un endroit où tu cliques juste si t'es curieux. Ça s'est transformé en ce portail.";
+        document.getElementById("scroll-hint").textContent = "Ça te plaît ? Continue à scroller ↓";
+
+        document.getElementById("sec2-h2").textContent = "Pourquoi ICW ?";
+        document.getElementById("sec2-p1").innerHTML = "ICW veut dire <strong style=\"color: #f5f5f5;\">Sciences Informatiques et de la Communication</strong>. C'est une <strong style=\"color: #f5f5f5;\">option de transition liée à un domaine</strong> en troisième degré — ça veut dire que t'es préparé pour l'enseignement supérieur en STEM (université ou haute école).";
+        document.getElementById("sec2-p2").textContent = "Tu n'apprends pas juste comment la technologie marche, tu apprends aussi à construire des systèmes, des logiciels et des solutions toi-même au niveau secondaire.";
+
+        document.getElementById("sec3-h2").textContent = "Quels cours sont au centre ?";
+        document.getElementById("sec3-p1").textContent = "ICW est construit sur trois piliers :";
+        document.getElementById("sec3-li1").innerHTML = "<strong>Informatique</strong> — programmation, administration système, réseaux, communication de données";
+        document.getElementById("sec3-li2").innerHTML = "<strong>Maths</strong> — pensée logique et analytique à un niveau solide";
+        document.getElementById("sec3-li3").innerHTML = "<strong>Physique appliquée</strong> — électromagnétisme, électrodynamique, électronique";
+        document.getElementById("sec3-p2").textContent = "Donc c'est pas une option \"juste apprendre à coder\". C'est un cursus STEM solide où l'informatique est un pilier sur trois.";
+
+        document.getElementById("quiz-h2a").textContent = "ICW c'est pour toi ?";
+        document.getElementById("quiz-h2b").textContent = "Fais le test.";
+        document.getElementById("quiz-intro").textContent = "Cinq questions simples. Pas de la science, juste un check honnête.";
+
+        document.getElementById("q1-label").textContent = "1. T'es intéressé par l'informatique ?";
+        document.getElementById("q2-label").textContent = "2. T'es fort en maths ?";
+        document.getElementById("q3-label").textContent = "3. La technologie ça t'intéresse ?";
+        document.getElementById("q4-label").textContent = "4. T'es bon en réflexion analytique et résolution de problèmes ?";
+        document.getElementById("q5-label").textContent = "5. T'es prêt à mordre dans du nouveau contenu ?";
+
+        setAnswerLabels("Oui", "Un peu", "Non");
+
+        document.getElementById("quiz-btn").textContent = "Voir le résultat";
+
+        document.getElementById("sec5-h2").textContent = "Et après ICW ?";
+        document.getElementById("sec5-p").textContent = "Tu peux continuer vers des bachelors professionnels ou académiques en STEM, par exemple :";
+        document.getElementById("sec5-li1").textContent = "Informatique Appliquée (bachelor professionnel)";
+        document.getElementById("sec5-li2").textContent = "Électronique-ICT (bachelor professionnel)";
+        document.getElementById("sec5-li3").textContent = "Sciences Industrielles (bachelor académique)";
+        document.getElementById("sec5-li4").textContent = "Sciences Informatiques (bachelor académique)";
+
+        document.getElementById("cta-h2").textContent = "Prêt à essayer un truc ?";
+        document.getElementById("cta-p").textContent = "Check notre cours gratuit pour commencer avec les bases.";
+        document.getElementById("cta-btn").textContent = "Voir le cours →";
+
+        document.getElementById("footer-credit").textContent = "fait par des étudiants, pour des étudiants.";
+      }
+
+      localStorage.setItem("icw-lang", lang);
+      document.getElementById("lang-menu").classList.remove("show");
+    }
+
+    // Load the saved language on page open
+    let savedLang = localStorage.getItem("icw-lang");
+    if (savedLang === "en") {
+      setLang("en");
+    } else if (savedLang === "fr") {
+      setLang("fr");
+    }
+
+    // === Quiz logic ===
+    // When the user clicks the submit button:
+    // 1. Read each radio button choice
+    // 2. Add up the score
+    // 3. For every "Een beetje" (1) or "Nee" (0) answer, add a tip
+    // 4. Show a final message based on the total score
+    document.getElementById("quiz").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // What language is the page in right now?
+      let lang = localStorage.getItem("icw-lang");
+      if (lang !== "en" && lang !== "fr") {
+        lang = "nl";
+      }
+
+      let score = 0;
+      let tips = [];
+
+      // --- Question 1 ---
+      let q1 = document.querySelector('input[name="q1"]:checked');
+      if (q1) {
+        let v1 = parseInt(q1.value);
+        score = score + v1;
+        if (v1 === 1) {
+          if (lang === "nl") tips.push("Je interesse in informatica is nog niet duidelijk — probeer eens een gratis tutorial om te zien of het klikt.");
+          else if (lang === "en") tips.push("Your interest in computer science isn't fully there yet — try a free tutorial to see if it clicks.");
+          else if (lang === "fr") tips.push("Ton intérêt pour l'informatique est pas encore évident — essaye un tuto gratuit pour voir si ça clique.");
+        }
+        if (v1 === 0) {
+          if (lang === "nl") tips.push("Zonder echte interesse in informatica wordt ICW snel zwaar. Misschien eerst eens experimenteren voor je beslist.");
+          else if (lang === "en") tips.push("Without real interest in computer science, ICW gets heavy fast. Maybe experiment first before deciding.");
+          else if (lang === "fr") tips.push("Sans vrai intérêt pour l'informatique, ICW devient lourd vite. Peut-être expérimente avant de décider.");
+        }
+      }
+
+      // --- Question 2 ---
+      let q2 = document.querySelector('input[name="q2"]:checked');
+      if (q2) {
+        let v2 = parseInt(q2.value);
+        score = score + v2;
+        if (v2 === 1) {
+          if (lang === "nl") tips.push("Wiskunde is een grote pijler in ICW. Een paar maanden extra oefenen kan veel verschil maken.");
+          else if (lang === "en") tips.push("Math is a big pillar in ICW. A few extra months of practice can make a big difference.");
+          else if (lang === "fr") tips.push("Les maths sont un gros pilier en ICW. Quelques mois de pratique en plus peuvent faire une grosse différence.");
+        }
+        if (v2 === 0) {
+          if (lang === "nl") tips.push("ICW vraagt sterke wiskunde. Focus eerst op je wiskunde — zonder die basis wordt het lastig.");
+          else if (lang === "en") tips.push("ICW needs strong math. Focus on your math first — without that base it's gonna be tough.");
+          else if (lang === "fr") tips.push("ICW demande des maths solides. Concentre-toi d'abord sur les maths — sans cette base ça va être dur.");
+        }
+      }
+
+      // --- Question 3 ---
+      let q3 = document.querySelector('input[name="q3"]:checked');
+      if (q3) {
+        let v3 = parseInt(q3.value);
+        score = score + v3;
+        if (v3 === 1) {
+          if (lang === "nl") tips.push("Je interesse in technologie kan groeien — bekijk eens video's over hoe computers en netwerken werken.");
+          else if (lang === "en") tips.push("Your interest in tech can grow — watch some videos on how computers and networks work.");
+          else if (lang === "fr") tips.push("Ton intérêt pour la tech peut grandir — regarde des vidéos sur comment les ordis et réseaux marchent.");
+        }
+        if (v3 === 0) {
+          if (lang === "nl") tips.push("ICW gaat diep in op hoe technologie werkt. Zonder die interesse wordt het zwaar.");
+          else if (lang === "en") tips.push("ICW goes deep into how tech works. Without that interest it gets heavy.");
+          else if (lang === "fr") tips.push("ICW va loin dans comment la tech marche. Sans cet intérêt ça devient lourd.");
+        }
+      }
+
+      // --- Question 4 ---
+      let q4 = document.querySelector('input[name="q4"]:checked');
+      if (q4) {
+        let v4 = parseInt(q4.value);
+        score = score + v4;
+        if (v4 === 1) {
+          if (lang === "nl") tips.push("Analytisch denken is iets dat je traint. Probeer eens logische puzzels om dit aan te scherpen.");
+          else if (lang === "en") tips.push("Analytical thinking is something you train. Try logic puzzles to sharpen it.");
+          else if (lang === "fr") tips.push("La pensée analytique ça se travaille. Essaye des énigmes logiques pour aiguiser ça.");
+        }
+        if (v4 === 0) {
+          if (lang === "nl") tips.push("Analytisch en probleemoplossend denken zijn echt de kern van ICW. Hier kan je aan werken voor je begint.");
+          else if (lang === "en") tips.push("Analytical and problem-solving thinking are really the core of ICW. Something to work on before you start.");
+          else if (lang === "fr") tips.push("La pensée analytique et la résolution de problèmes sont vraiment le cœur d'ICW. À bosser avant de commencer.");
+        }
+      }
+
+      // --- Question 5 ---
+      let q5 = document.querySelector('input[name="q5"]:checked');
+      if (q5) {
+        let v5 = parseInt(q5.value);
+        score = score + v5;
+        if (v5 === 1) {
+          if (lang === "nl") tips.push("Doorzettingsvermogen is belangrijk. ICW gooit soms moeilijke leerstof naar je hoofd — bereid je daarop voor.");
+          else if (lang === "en") tips.push("Persistence matters. ICW throws hard material at you sometimes — be ready for that.");
+          else if (lang === "fr") tips.push("La persévérance c'est important. ICW te balance parfois du contenu dur — sois prêt à ça.");
+        }
+        if (v5 === 0) {
+          if (lang === "nl") tips.push("ICW is een doorstroomrichting met serieuze leerstof. Als je niet bereid bent om door te bijten, wordt het zwaar.");
+          else if (lang === "en") tips.push("ICW is a transition track with serious material. If you're not willing to bite in, it's gonna be tough.");
+          else if (lang === "fr") tips.push("ICW c'est une option de transition avec du contenu sérieux. Si t'es pas prêt à mordre dedans, ça va être dur.");
+        }
+      }
+
+      // --- Show the final message based on score ---
+      let title = "";
+      let text = "";
+
+      if (score >= 8) {
+        if (lang === "nl") {
+          title = "Klinkt alsof ICW iets voor jou is.";
+          text = "Je scoort " + score + "/10. Je interesse en aanleg passen goed bij wat de richting vraagt.";
+        } else if (lang === "en") {
+          title = "Sounds like ICW could be for you.";
+          text = "You scored " + score + "/10. Your interest and aptitude line up with what the track asks for.";
+        } else if (lang === "fr") {
+          title = "On dirait qu'ICW c'est pour toi.";
+          text = "T'as " + score + "/10. Ton intérêt et tes capacités collent avec ce que l'option demande.";
+        }
+      } else if (score >= 5) {
+        if (lang === "nl") {
+          title = "Misschien iets voor jou — met wat werk.";
+          text = "Je scoort " + score + "/10. Een paar dingen passen al, andere kan je nog aanscherpen.";
+        } else if (lang === "en") {
+          title = "Maybe for you — with some work.";
+          text = "You scored " + score + "/10. A few things already fit, others you can still sharpen.";
+        } else if (lang === "fr") {
+          title = "Peut-être pour toi — avec un peu de boulot.";
+          text = "T'as " + score + "/10. Quelques trucs collent déjà, d'autres tu peux encore les améliorer.";
+        }
+      } else {
+        if (lang === "nl") {
+          title = "Misschien minder jouw richting.";
+          text = "Je scoort " + score + "/10. Dat is geen oordeel — ICW is gewoon vrij specifiek.";
+        } else if (lang === "en") {
+          title = "Maybe not your track.";
+          text = "You scored " + score + "/10. Not a judgment — ICW is just pretty specific.";
+        } else if (lang === "fr") {
+          title = "Peut-être pas ton truc.";
+          text = "T'as " + score + "/10. C'est pas un jugement — ICW c'est juste assez spécifique.";
+        }
+      }
+
+      document.getElementById("result-title").textContent = title;
+      document.getElementById("result-text").textContent = text;
+
+      // Fill in the tips list
+      let tipsList = document.getElementById("result-tips");
+      tipsList.innerHTML = "";
+      for (let i = 0; i < tips.length; i++) {
+        let li = document.createElement("li");
+        li.textContent = tips[i];
+        tipsList.appendChild(li);
+      }
+
+      document.getElementById("result").classList.add("show");
+      document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  </script>
+</body>
+</html>

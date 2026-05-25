@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community — ICW-portaal</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+
+  <style>
+.hero {
+      padding: 70px 24px 30px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #f1be32;
+      color: #0a0a23;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 { font-size: 44px; margin-bottom: 16px; line-height: 1.2; }
+    .hero .accent { color: #f1be32; }
+    .hero p {
+      font-size: 17px;
+      color: #d0d0d5;
+      max-width: 700px;
+      margin: 0 auto 12px;
+    }
+
+    .prize { max-width: 900px; margin: 30px auto; padding: 0 24px; }
+    .prize-box {
+      background-color: #0a0a23;
+      border: 2px solid #f1be32;
+      border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+    }
+    .prize-box .amount {
+      font-size: 48px;
+      color: #f1be32;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .prize-box .sub { font-size: 14px; color: #d0d0d5; letter-spacing: 1px; }
+
+    .brief { max-width: 900px; margin: 50px auto; padding: 0 24px; }
+    .brief h2 { font-size: 28px; margin-bottom: 20px; }
+    .brief h2 .accent { color: #f1be32; }
+    .brief p { color: #d0d0d5; margin-bottom: 14px; font-size: 15px; }
+    .brief ul { list-style: none; margin: 20px 0; }
+    .brief li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      color: #d0d0d5;
+      font-size: 15px;
+    }
+    .brief li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #f1be32;
+    }
+    .brief strong { color: #f5f5f5; }
+
+    .rounds {
+      background-color: #0a0a23;
+      padding: 60px 24px;
+      border-top: 2px solid #f1be32;
+      border-bottom: 2px solid #f1be32;
+    }
+    .rounds-inner { max-width: 900px; margin: 0 auto; }
+    .rounds h2 { font-size: 28px; text-align: center; margin-bottom: 30px; }
+
+    .round {
+      background-color: #1b1b32;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .round-num {
+      flex-shrink: 0;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f1be32;
+      color: #0a0a23;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .round-content { flex: 1; }
+    .round-content h3 { font-size: 18px; color: #f1be32; margin-bottom: 4px; }
+    .round-content .when {
+      font-size: 12px;
+      color: #d0d0d5;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .round-content p { color: #d0d0d5; font-size: 14px; }
+
+    .calc-section { max-width: 900px; margin: 60px auto; padding: 0 24px; }
+    .calc-section h2 { font-size: 28px; margin-bottom: 10px; text-align: center; }
+    .calc-section .intro {
+      color: #d0d0d5;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    .calc-box {
+      background-color: #0a0a23;
+      border-radius: 8px;
+      padding: 30px;
+      border: 1px solid #3b3b4f;
+    }
+    .calc-row { display: flex; flex-direction: column; margin-bottom: 18px; }
+    .calc-row label { color: #f5f5f5; font-size: 14px; margin-bottom: 6px; }
+    .calc-row input {
+      background-color: #1b1b32;
+      border: 1px solid #3b3b4f;
+      color: #f5f5f5;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 15px;
+      border-radius: 4px;
+    }
+    .calc-row input:focus { outline: none; border-color: #f1be32; }
+    .calc-btn {
+      background-color: #f1be32;
+      color: #0a0a23;
+      border: none;
+      padding: 12px 24px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    .calc-btn:hover { background-color: #f5f5f5; }
+    .calc-result {
+      margin-top: 24px;
+      padding: 20px;
+      border-left: 3px solid #f1be32;
+      background-color: #1b1b32;
+      display: none;
+    }
+    .calc-result.show { display: block; }
+    .calc-result h4 {
+      color: #f1be32;
+      font-size: 14px;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .calc-result .big { font-size: 28px; color: #f5f5f5; margin-bottom: 4px; }
+    .calc-result .note { font-size: 13px; color: #d0d0d5; }
+
+    .rules { max-width: 900px; margin: 50px auto; padding: 0 24px; }
+    .rules h2 { font-size: 24px; margin-bottom: 20px; }
+    .rules-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+    .rule-card {
+      flex: 1;
+      min-width: 240px;
+      background-color: #0a0a23;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 3px solid #f1be32;
+    }
+    .rule-card h3 { font-size: 16px; color: #f1be32; margin-bottom: 8px; }
+    .rule-card p { color: #d0d0d5; font-size: 14px; }
+
+    /* Beta / contributor invite */
+    .beta { max-width: 900px; margin: 60px auto; padding: 0 24px; }
+    .beta-inner {
+      background-color: #0a0a23;
+      border-radius: 8px;
+      padding: 36px;
+      border-left: 4px solid #f1be32;
+    }
+    .beta-tag {
+      display: inline-block;
+      background-color: transparent;
+      color: #f1be32;
+      border: 1px solid #f1be32;
+      padding: 3px 10px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+    .beta h2 { font-size: 22px; margin-bottom: 14px; }
+    .beta p { color: #d0d0d5; font-size: 15px; margin-bottom: 12px; }
+    .btn-secondary {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: transparent;
+      color: #f1be32;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+      border: 1px solid #f1be32;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background-color: #f1be32; color: #0a0a23; }
+
+    .cta { text-align: center; padding: 60px 24px; background-color: #0a0a23; }
+    .cta h2 { font-size: 28px; margin-bottom: 12px; }
+    .cta p { color: #d0d0d5; margin-bottom: 20px; }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background-color: #f1be32;
+      color: #0a0a23;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .btn:hover { background-color: #f5f5f5; }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 30px; }
+      .prize-box .amount { font-size: 36px; }
+      .round { flex-direction: column; gap: 12px; }
+
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo"><img src="icw.png.png" alt="ICW-portaal"></a>
+    <div class="header-right">
+      <div class="lang">
+        <button class="lang-btn" onclick="toggleLang()">🌐</button>
+        <ul class="lang-menu" id="lang-menu">
+          <li><button onclick="setLang('nl')">Nederlands</button></li>
+          <li><button onclick="setLang('en')">English</button></li>
+          <li><button onclick="setLang('fr')">Français</button></li>
+        </ul>
+      </div>
+      <nav>
+        <button class="menu-btn" id="menu-btn" onclick="toggleMenu()">Menu ☰</button>
+        <ul class="menu" id="menu">
+          <li><a href="index.html" id="nav-home">Home</a></li>
+          <li><a href="leerpad.html" id="nav-path">Cursus <span class="free-tag" id="free-tag">← 100% gratis bronnen!</span></a></li>
+          <li><a href="over-icw.html" id="nav-about">Over ICW <span class="free-tag" id="test-tag">← Doe onze ICW test!</span></a></li>
+          <li><a href="community.html" id="nav-hackathon">Hackathon V1</a></li>
+          <li><a href="extra.html" id="nav-extra">Dev team</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="tag" id="hero-tag">HACKATHON V1</span>
+    <h1><span id="hero-h1a">De</span> <span class="accent" id="hero-h1b">zomercompetitie</span> <span id="hero-h1c">van 2026</span></h1>
+    <p id="hero-p1">Bouw deze zomer een site over zonnepanelen. Maak iets dat mensen daadwerkelijk willen kopen.</p>
+    <p id="hero-p2">Eén thema, één maand, één winnaar.</p>
+  </section>
+
+  <div class="prize">
+    <div class="prize-box">
+      <div class="amount">2000 V-Bucks</div>
+      <div class="sub" id="prize-sub">OF EEN EQUIVALENT IN CASH</div>
+    </div>
+  </div>
+
+  <section class="brief">
+    <h2><span id="brief-h2a">De</span> <span class="accent" id="brief-h2b">opdracht</span></h2>
+    <p id="brief-p1">Maak een site over zonnepanelen die mensen verkoopt. Niet alleen mooi van buiten — je moet ook één creatieve functie inbouwen die mensen helpt de keuze te maken om er een te kopen.</p>
+    <p id="brief-p2">Denk aan een rekenmachine die laat zien hoeveel je bespaart, een vergelijker, een visualisatie op je dak — als het overtuigt, telt het.</p>
+    <ul>
+      <li id="brief-li1"><strong>Thema:</strong> zonnepanelen — verkoop het idee</li>
+      <li id="brief-li2"><strong>Stack:</strong> HTML, CSS, JavaScript (alles wat je in het leerpad gezien hebt)</li>
+      <li id="brief-li3"><strong>Creatieve functie:</strong> één feature die overtuigt, verplicht</li>
+      <li id="brief-li4"><strong>Style:</strong> wordt mee beoordeeld, dus probeer iets dat niet als template eruit ziet</li>
+      <li id="brief-li5"><strong>AI:</strong> mag je zeker gebruiken (we gebruikten het zelfs voor deze site aan te maken so ur good), wat je gemaakt hebt met AI moet je kunnen uitleggen wat jouw functie doet als je het word gevraagd</li>
+    </ul>
+  </section>
+
+  <section class="rounds">
+    <div class="rounds-inner">
+      <h2 id="rounds-h2">Hoe de competitie verloopt</h2>
+
+      <div class="round">
+        <div class="round-num">1</div>
+        <div class="round-content">
+          <h3 id="round1-h3">Bouwfase</h3>
+          <div class="when" id="round1-when">JULI — AUGUSTUS 2026</div>
+          <p id="round1-p">Je hebt een hele maand om je site te bouwen. Werk solo, duo of in groep. Lever in via GitHub repo door te storen naar de mail: hackathon@icw.xyz.</p>
+        </div>
+      </div>
+
+      <div class="round">
+        <div class="round-num">2</div>
+        <div class="round-content">
+          <h3 id="round2-h3">Showcase call</h3>
+          <div class="when" id="round2-when">BEGIN SEPTEMBER 2026</div>
+          <p id="round2-p">Op call laat je je site zien en leg je uit wat je gebouwd hebt. Vragen worden gesteld over je code, je moet weten wat er staat. (Again je mag AI gebruiken, maar je moet de volledige code kunnen uitleggen)</p>
+        </div>
+      </div>
+
+      <div class="round">
+        <div class="round-num">3</div>
+        <div class="round-content">
+          <h3 id="round3-h3">Finale: 1u live build</h3>
+          <div class="when" id="round3-when">FINALISTEN ONLY</div>
+          <p id="round3-p">Haal je de finale? Dan krijg je één uur om iets te bouwen met enkel HTML en CSS uit het leerpad. Geen JavaScript, geen externe hulp. Pure skill check.</p>
+        </div>
+      </div>
+    </div>
+     <section class="rules">
+    <h2 id="rules-h2">Spelregels</h2>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <h3 id="rule1-h3">AI mag</h3>
+        <p id="rule1-p">Gebruik Ai enz, boeit de competitie vrij weinig. Maar als je niet kan uitleggen wat je code doet, lig je eruit.</p>
+      </div>
+      <div class="rule-card">
+        <h3 id="rule2-h3">Eigen werk</h3>
+        <p id="rule2-p">Templates kopiëren zonder bronvermelding is geen optie. Inspiratie nemen wel. wees gewoon eerlijk over je bronnen: bij inspiratie en bronvermelding krijg je bonuspunten.</p>
+      </div>
+    </div>
+  </section>
+  </section>
+
+  <section class="calc-section">
+    <h2 id="calc-h2">Voorbeeld: bespaar-calculator</h2>
+    <p class="intro" id="calc-intro">Een algemeen voorbeeld van het soort toepassing dat we zoeken.</p>
+
+    <div class="calc-box">
+      <div class="calc-row">
+        <label for="bill" id="calc-bill-label">Maandelijkse stroomrekening (€)</label>
+        <input type="number" id="bill" placeholder="120" min="0">
+      </div>
+      <div class="calc-row">
+        <label for="panels" id="calc-panels-label">Aantal panelen (richtprijs €350/stuk)</label>
+        <input type="number" id="panels" placeholder="10" min="1">
+      </div>
+      <button class="calc-btn" onclick="calculate()" id="calc-btn">Bereken besparing</button>
+
+      <div class="calc-result" id="calc-result">
+        <h4 id="calc-result-label">JE BESPAART</h4>
+        <div class="big" id="calc-savings"></div>
+        <p class="note" id="calc-note"></p>
+      </div>
+    </div>
+  </section>
+  <section class="beta">
+    <div class="beta-inner">
+      <span class="beta-tag" id="beta-tag">BETA</span>
+      <h2 id="beta-h2">Dit project is nog volop in ontwikkeling.</h2>
+      <p id="beta-p1">We zitten nog in beta. Dingen breken, teksten veranderen, features komen en gaan. Vond je een bug? Heb je een idee? Iets klopt niet?</p>
+      <p id="beta-p2">Stuur ons feedback en we voegen je toe als <strong style="color: #f5f5f5;">test engineer</strong> op onze contributorspagina — je naam, GitHub, en een vermelding in het dev team.</p>
+      <a href="mailto:hackathon@example.com" class="btn-secondary" id="beta-btn">Stuur ons feedback →</a>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2 id="cta-h2">Doe je mee?</h2>
+    <p id="cta-p">Stuur je werk in vóór 1 augustus 2026 naar het mailadres hieronder. Geen apart inschrijfformulier — je inzending is je inschrijving.</p>
+    <a href="mailto:hackathon@example.com" class="btn" id="cta-btn">hackathon@example.com →</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 ICW-portaal — <span id="footer-credit">gemaakt door studenten, voor studenten.</span></p>
+    <p class="coffee-line"><a href="https://buymeacoffee.com/example" target="_blank" rel="noopener noreferrer" id="coffee-link">☕ Steun het project — buy us a coffee</a></p>
+  </footer>
+
+  <script>
+
+    function setLang(lang) {
+
+      // === Dutch ===
+      if (lang === "nl") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Home";
+        document.getElementById("nav-path").innerHTML = 'Cursus <span class="free-tag" id="free-tag">← 100% gratis bronnen!</span>';
+        document.getElementById("nav-about").innerHTML = 'Over ICW <span class="free-tag" id="test-tag">← Doe onze ICW test!</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-tag").textContent = "HACKATHON V1";
+        document.getElementById("hero-h1a").textContent = "De";
+        document.getElementById("hero-h1b").textContent = "zomercompetitie";
+        document.getElementById("hero-h1c").textContent = "van 2026";
+        document.getElementById("hero-p1").textContent = "Bouw deze zomer een site over zonnepanelen. Maak iets dat mensen daadwerkelijk willen kopen.";
+        document.getElementById("hero-p2").textContent = "Eén thema, één maand, één winnaar.";
+
+        document.getElementById("prize-sub").textContent = "OF EEN EQUIVALENT IN CASH";
+
+        document.getElementById("brief-h2a").textContent = "De";
+        document.getElementById("brief-h2b").textContent = "opdracht";
+        document.getElementById("brief-p1").textContent = "Maak een site over zonnepanelen die mensen verkoopt. Niet alleen mooi van buiten — je moet ook één creatieve functie inbouwen die mensen helpt de keuze te maken om er een te kopen.";
+        document.getElementById("brief-p2").textContent = "Denk aan een rekenmachine die laat zien hoeveel je bespaart, een vergelijker, een visualisatie op je dak — als het overtuigt, telt het.";
+        document.getElementById("brief-li1").innerHTML = "<strong>Thema:</strong> zonnepanelen — verkoop het idee";
+        document.getElementById("brief-li2").innerHTML = "<strong>Stack:</strong> HTML, CSS, JavaScript (alles wat je in het leerpad gezien hebt)";
+        document.getElementById("brief-li3").innerHTML = "<strong>Creatieve functie:</strong> één feature die overtuigt, verplicht";
+        document.getElementById("brief-li4").innerHTML = "<strong>Style:</strong> wordt mee beoordeeld, dus probeer iets dat niet als template eruit ziet";
+        document.getElementById("brief-li5").innerHTML = "<strong>AI:</strong> mag, maar je moet alles wat je gemaakt hebt kunnen uitleggen op call";
+
+        document.getElementById("rounds-h2").textContent = "Hoe het loopt";
+        document.getElementById("round1-h3").textContent = "Bouwfase";
+        document.getElementById("round1-when").textContent = "JULI — AUGUSTUS 2026";
+        document.getElementById("round1-p").textContent = "Je hebt de hele zomer om je site te bouwen. Werk solo of in duo. Lever in via GitHub.";
+        document.getElementById("round2-h3").textContent = "Showcase call";
+        document.getElementById("round2-when").textContent = "BEGIN SEPTEMBER 2026";
+        document.getElementById("round2-p").textContent = "Op call laat je je site zien en leg je uit wat je gebouwd hebt. Vragen worden gesteld over je code — je moet weten wat er staat.";
+        document.getElementById("round3-h3").textContent = "Finale: 1u live build";
+        document.getElementById("round3-when").textContent = "FINALISTEN ONLY";
+        document.getElementById("round3-p").textContent = "Haal je de finale? Dan krijg je op call één uur om iets te bouwen met enkel HTML en CSS uit het leerpad. Geen JavaScript, geen externe hulp. Pure skill check.";
+
+        document.getElementById("calc-h2").textContent = "Voorbeeld: bespaar-calculator";
+        document.getElementById("calc-intro").textContent = "Een voorbeeld van het soort feature dat we zoeken. Probeer 'm uit en steel het idee niet, maar laat je inspireren.";
+        document.getElementById("calc-bill-label").textContent = "Maandelijkse stroomrekening (€)";
+        document.getElementById("calc-panels-label").textContent = "Aantal panelen (richtprijs €350/stuk)";
+        document.getElementById("calc-btn").textContent = "Bereken besparing";
+        document.getElementById("calc-result-label").textContent = "JE BESPAART";
+
+        document.getElementById("rules-h2").textContent = "Spelregels";
+        document.getElementById("rule1-h3").textContent = "AI mag";
+        document.getElementById("rule1-p").textContent = "Gebruik ChatGPT, Claude, wat je wil. Maar als je niet kan uitleggen wat je code doet, lig je eruit.";
+        document.getElementById("rule2-h3").textContent = "Eigen werk";
+        document.getElementById("rule2-p").textContent = "Templates kopiëren is geen optie. Inspiratie nemen wel — wees gewoon eerlijk over je bronnen.";
+        document.getElementById("rule3-h3").textContent = "Deadline = deadline";
+        document.getElementById("rule3-p").textContent = "Te laat is te laat. Plan beter.";
+
+        document.getElementById("beta-tag").textContent = "BETA";
+        document.getElementById("beta-h2").textContent = "Dit project is nog volop in ontwikkeling.";
+        document.getElementById("beta-p1").textContent = "We zitten nog in beta. Dingen breken, teksten veranderen, features komen en gaan. Vond je een bug? Heb je een idee? Iets klopt niet?";
+        document.getElementById("beta-p2").innerHTML = "Stuur ons feedback en we voegen je toe als <strong style=\"color: #f5f5f5;\">test engineer</strong> op onze contributorspagina — je naam, GitHub, en een vermelding in het dev team.";
+        document.getElementById("beta-btn").textContent = "Stuur ons feedback →";
+
+        document.getElementById("cta-h2").textContent = "Doe je mee?";
+        document.getElementById("cta-p").textContent = "Stuur je werk in vóór 1 augustus 2026 naar het mailadres hieronder. Geen apart inschrijfformulier — je inzending is je inschrijving.";
+        document.getElementById("cta-btn").textContent = "hackathon@example.com →";
+
+        document.getElementById("footer-credit").textContent = "gemaakt door studenten, voor studenten.";
+        document.getElementById("coffee-link").textContent = "☕ Steun het project — buy us a coffee";
+      }
+
+      // === English ===
+      else if (lang === "en") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Home";
+        document.getElementById("nav-path").innerHTML = 'Course <span class="free-tag" id="free-tag">← 100% free sources!</span>';
+        document.getElementById("nav-about").innerHTML = 'About ICW <span class="free-tag" id="test-tag">← Take our ICW test!</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-tag").textContent = "HACKATHON V1";
+        document.getElementById("hero-h1a").textContent = "The";
+        document.getElementById("hero-h1b").textContent = "summer comp";
+        document.getElementById("hero-h1c").textContent = "of 2026";
+        document.getElementById("hero-p1").textContent = "Build a website about solar panels this summer. Make something people actually want to buy.";
+        document.getElementById("hero-p2").textContent = "One theme, one month, one winner.";
+
+        document.getElementById("prize-sub").textContent = "OR EQUIVALENT IN CASH";
+
+        document.getElementById("brief-h2a").textContent = "The";
+        document.getElementById("brief-h2b").textContent = "brief";
+        document.getElementById("brief-p1").textContent = "Make a solar panel website that sells. Not just nice-looking — you also need to build one creative feature that helps people decide to buy.";
+        document.getElementById("brief-p2").textContent = "Think a calculator that shows how much you save, a comparison tool, a visualization on your roof — if it convinces, it counts.";
+        document.getElementById("brief-li1").innerHTML = "<strong>Theme:</strong> solar panels — sell the idea";
+        document.getElementById("brief-li2").innerHTML = "<strong>Stack:</strong> HTML, CSS, JavaScript (everything from the course)";
+        document.getElementById("brief-li3").innerHTML = "<strong>Creative feature:</strong> one convincing feature, required";
+        document.getElementById("brief-li4").innerHTML = "<strong>Style:</strong> graded too, so don't look like a template";
+        document.getElementById("brief-li5").innerHTML = "<strong>AI:</strong> allowed, but you have to explain everything you made on call";
+
+        document.getElementById("rounds-h2").textContent = "How it goes";
+        document.getElementById("round1-h3").textContent = "Build phase";
+        document.getElementById("round1-when").textContent = "JULY — AUGUST 2026";
+        document.getElementById("round1-p").textContent = "You have the whole summer to build your site. Solo or duo. Submit through GitHub.";
+        document.getElementById("round2-h3").textContent = "Showcase call";
+        document.getElementById("round2-when").textContent = "EARLY SEPTEMBER 2026";
+        document.getElementById("round2-p").textContent = "On call, you show your site and explain what you built. Questions get asked about your code — you need to know what's in there.";
+        document.getElementById("round3-h3").textContent = "Final: 1h live build";
+        document.getElementById("round3-when").textContent = "FINALISTS ONLY";
+        document.getElementById("round3-p").textContent = "Made the final? You get one hour on call to build something with only HTML and CSS from the course. No JavaScript, no outside help. Pure skill check.";
+
+        document.getElementById("calc-h2").textContent = "Example: savings calculator";
+        document.getElementById("calc-intro").textContent = "An example of the kind of feature we're looking for. Try it out and don't steal the idea — just let it inspire you.";
+        document.getElementById("calc-bill-label").textContent = "Monthly electricity bill (€)";
+        document.getElementById("calc-panels-label").textContent = "Number of panels (around €350 each)";
+        document.getElementById("calc-btn").textContent = "Calculate savings";
+        document.getElementById("calc-result-label").textContent = "YOU SAVE";
+
+        document.getElementById("rules-h2").textContent = "Rules";
+        document.getElementById("rule1-h3").textContent = "AI is fine";
+        document.getElementById("rule1-p").textContent = "Use ChatGPT, Claude, whatever. But if you can't explain what your code does, you're out.";
+        document.getElementById("rule2-h3").textContent = "Your own work";
+        document.getElementById("rule2-p").textContent = "Copying templates is not an option. Taking inspiration is — just be honest about your sources.";
+        document.getElementById("rule3-h3").textContent = "Deadline = deadline";
+        document.getElementById("rule3-p").textContent = "Late is late. Plan better.";
+
+        document.getElementById("beta-tag").textContent = "BETA";
+        document.getElementById("beta-h2").textContent = "This project is still actively in development.";
+        document.getElementById("beta-p1").textContent = "We're still in beta. Things break, text changes, features come and go. Found a bug? Got an idea? Something not adding up?";
+        document.getElementById("beta-p2").innerHTML = "Send us feedback and we'll add you as a <strong style=\"color: #f5f5f5;\">test engineer</strong> on our contributors page — your name, GitHub, and a mention in the dev team.";
+        document.getElementById("beta-btn").textContent = "Send us feedback →";
+
+        document.getElementById("cta-h2").textContent = "Joining in?";
+        document.getElementById("cta-p").textContent = "Submit your work before August 1, 2026 to the email below. No separate signup form — your submission is your registration.";
+        document.getElementById("cta-btn").textContent = "hackathon@example.com →";
+
+        document.getElementById("footer-credit").textContent = "made by students, for students.";
+        document.getElementById("coffee-link").textContent = "☕ Support the project — buy us a coffee";
+      }
+
+      // === French ===
+      else if (lang === "fr") {
+        document.getElementById("menu-btn").textContent = "Menu ☰";
+        document.getElementById("nav-home").textContent = "Accueil";
+        document.getElementById("nav-path").innerHTML = 'Cours <span class="free-tag" id="free-tag">← 100% sources gratuites !</span>';
+        document.getElementById("nav-about").innerHTML = 'À propos d\'ICW <span class="free-tag" id="test-tag">← Fais notre test ICW !</span>';
+        document.getElementById("nav-hackathon").textContent = "Hackathon V1";
+        document.getElementById("nav-extra").textContent = "Dev team";
+
+        document.getElementById("hero-tag").textContent = "HACKATHON V1";
+        document.getElementById("hero-h1a").textContent = "Le";
+        document.getElementById("hero-h1b").textContent = "concours d'été";
+        document.getElementById("hero-h1c").textContent = "de 2026";
+        document.getElementById("hero-p1").textContent = "Construis un site sur les panneaux solaires cet été. Fais un truc que les gens ont vraiment envie d'acheter.";
+        document.getElementById("hero-p2").textContent = "Un thème, un mois, un gagnant.";
+
+        document.getElementById("prize-sub").textContent = "OU L'ÉQUIVALENT EN CASH";
+
+        document.getElementById("brief-h2a").textContent = "Le";
+        document.getElementById("brief-h2b").textContent = "brief";
+        document.getElementById("brief-p1").textContent = "Fais un site sur les panneaux solaires qui vend. Pas juste joli — tu dois aussi construire une fonction créative qui aide les gens à décider d'acheter.";
+        document.getElementById("brief-p2").textContent = "Pense à une calculatrice qui montre combien tu économises, un comparateur, une visualisation sur ton toit — si ça convainc, ça compte.";
+        document.getElementById("brief-li1").innerHTML = "<strong>Thème :</strong> panneaux solaires — vends l'idée";
+        document.getElementById("brief-li2").innerHTML = "<strong>Stack :</strong> HTML, CSS, JavaScript (tout ce que t'as vu dans le cours)";
+        document.getElementById("brief-li3").innerHTML = "<strong>Fonction créative :</strong> une feature qui convainc, obligatoire";
+        document.getElementById("brief-li4").innerHTML = "<strong>Style :</strong> compte aussi, donc évite l'effet template";
+        document.getElementById("brief-li5").innerHTML = "<strong>IA :</strong> permis, mais tu dois pouvoir expliquer tout ce que t'as fait en call";
+
+        document.getElementById("rounds-h2").textContent = "Comment ça marche";
+        document.getElementById("round1-h3").textContent = "Phase de construction";
+        document.getElementById("round1-when").textContent = "JUILLET — AOÛT 2026";
+        document.getElementById("round1-p").textContent = "T'as tout l'été pour construire ton site. Seul ou en duo. Rends ton travail via GitHub.";
+        document.getElementById("round2-h3").textContent = "Call de présentation";
+        document.getElementById("round2-when").textContent = "DÉBUT SEPTEMBRE 2026";
+        document.getElementById("round2-p").textContent = "En call, tu montres ton site et tu expliques ce que t'as construit. On te pose des questions sur ton code — faut savoir ce qu'il y a dedans.";
+        document.getElementById("round3-h3").textContent = "Finale : 1h en live";
+        document.getElementById("round3-when").textContent = "FINALISTES SEULEMENT";
+        document.getElementById("round3-p").textContent = "T'es en finale ? T'as une heure en call pour construire un truc avec seulement le HTML et CSS du cours. Pas de JavaScript, pas d'aide extérieure. Pure skill check.";
+
+        document.getElementById("calc-h2").textContent = "Exemple : calculatrice d'économies";
+        document.getElementById("calc-intro").textContent = "Un exemple du genre de feature qu'on cherche. Essaye-la et vole pas l'idée — laisse-toi juste inspirer.";
+        document.getElementById("calc-bill-label").textContent = "Facture d'électricité mensuelle (€)";
+        document.getElementById("calc-panels-label").textContent = "Nombre de panneaux (environ €350 chacun)";
+        document.getElementById("calc-btn").textContent = "Calculer les économies";
+        document.getElementById("calc-result-label").textContent = "TU ÉCONOMISES";
+
+        document.getElementById("rules-h2").textContent = "Règles";
+        document.getElementById("rule1-h3").textContent = "L'IA c'est ok";
+        document.getElementById("rule1-p").textContent = "Utilise ChatGPT, Claude, ce que tu veux. Mais si tu peux pas expliquer ton code, t'es out.";
+        document.getElementById("rule2-h3").textContent = "Ton propre travail";
+        document.getElementById("rule2-p").textContent = "Copier des templates c'est non. S'inspirer oui — sois juste honnête sur tes sources.";
+        document.getElementById("rule3-h3").textContent = "Deadline = deadline";
+        document.getElementById("rule3-p").textContent = "En retard c'est en retard. Planifie mieux.";
+
+        document.getElementById("beta-tag").textContent = "BETA";
+        document.getElementById("beta-h2").textContent = "Ce projet est encore en plein développement.";
+        document.getElementById("beta-p1").textContent = "On est encore en beta. Des trucs cassent, les textes changent, les features vont et viennent. T'as trouvé un bug ? T'as une idée ? Y a un truc qui colle pas ?";
+        document.getElementById("beta-p2").innerHTML = "Envoie-nous ton feedback et on t'ajoute comme <strong style=\"color: #f5f5f5;\">test engineer</strong> sur notre page contributeurs — ton nom, GitHub, et une mention dans l'équipe dev.";
+        document.getElementById("beta-btn").textContent = "Envoie-nous ton feedback →";
+
+        document.getElementById("cta-h2").textContent = "Tu participes ?";
+        document.getElementById("cta-p").textContent = "Envoie ton travail avant le 1er août 2026 à l'adresse ci-dessous. Pas de formulaire d'inscription séparé — ta soumission c'est ton inscription.";
+        document.getElementById("cta-btn").textContent = "hackathon@example.com →";
+
+        document.getElementById("footer-credit").textContent = "fait par des étudiants, pour des étudiants.";
+        document.getElementById("coffee-link").textContent = "☕ Soutiens le projet — offre-nous un café";
+      }
+
+      localStorage.setItem("icw-lang", lang);
+      document.getElementById("lang-menu").classList.remove("show");
+    }
+
+    // === Calculator ===
+    function calculate() {
+      let bill = parseFloat(document.getElementById("bill").value);
+      let panels = parseInt(document.getElementById("panels").value);
+
+      if (isNaN(bill) || isNaN(panels) || bill <= 0 || panels <= 0) {
+        alert("Vul beide velden in met een positief getal.");
+        return;
+      }
+
+      let yearlySaving = bill * 12 * 0.7;
+      let cost = panels * 350;
+      let payback = (cost / yearlySaving).toFixed(1);
+      let twentyYears = (yearlySaving * 20 - cost).toFixed(0);
+
+      let lang = localStorage.getItem("icw-lang");
+      if (lang !== "en" && lang !== "fr") {
+        lang = "nl";
+      }
+
+      let perWord = "jaar";
+      let note = "";
+      if (lang === "nl") {
+        perWord = "jaar";
+        note = "Terugverdientijd: ~" + payback + " jaar. Winst over 20 jaar: €" + twentyYears + ".";
+      } else if (lang === "en") {
+        perWord = "year";
+        note = "Payback time: ~" + payback + " years. Profit over 20 years: €" + twentyYears + ".";
+      } else if (lang === "fr") {
+        perWord = "an";
+        note = "Temps de retour : ~" + payback + " ans. Bénéfice sur 20 ans : €" + twentyYears + ".";
+      }
+
+      document.getElementById("calc-savings").textContent = "€" + yearlySaving.toFixed(0) + " / " + perWord;
+      document.getElementById("calc-note").textContent = note;
+      document.getElementById("calc-result").classList.add("show");
+    }
+  </script>
+</body>
+</html>

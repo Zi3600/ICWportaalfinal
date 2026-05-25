@@ -1,0 +1,211 @@
+/* =========================
+   DESIGN SYSTEM
+========================= */
+:root {
+  --black: #000000;
+  --bg: #111111;
+  --hover: #1f1f1f;
+  --text-main: #f5f5f5;
+  --text-muted: #cccccc;
+  --accent: #ffc44d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-main);
+  font-family: monospace, "Courier New", Courier;
+}
+
+/* =========================
+   HEADER (ONE ROW, ALWAYS)
+========================= */
+.header {
+  background-color: var(--black);
+  padding: 0.8rem 1rem;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+/* Left spacer (balances menu width) */
+.header-spacer {
+  min-width: 40px;
+}
+
+/* Centered logo */
+.logo {
+  justify-self: center;
+  white-space: nowrap;
+}
+
+.logo img {
+  height: 36px;
+}
+
+/* Right menu */
+.menu {
+  justify-self: end;
+  position: relative;
+  white-space: nowrap;
+}
+
+.menu-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menu-btn:hover {
+  background-color: var(--hover);
+}
+
+/* Dropdown */
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 120%;
+  right: 0;
+
+  min-width: 220px;
+  background-color: var(--black);
+  border-radius: 8px;
+  padding: 0.4rem 0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+
+/* Show dropdown on hover, focus, or when .menu-open is present (for touch/click) */
+.menu:hover .menu-dropdown,
+.menu:focus-within .menu-dropdown,
+.menu.menu-open .menu-dropdown {
+  display: block;
+  animation: dropdown-fade-in 0.2s;
+}
+
+@keyframes dropdown-fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-section {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #777;
+}
+
+.menu-dropdown a {
+  display: block;
+  padding: 0.75rem 1.2rem;
+  text-decoration: none;
+  color: var(--text-muted);
+}
+
+.menu-dropdown a:hover {
+  background-color: var(--hover);
+  color: var(--text-main);
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  padding: 4rem 2rem;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10,10,10,0.95) 0%,
+      rgba(10,10,10,0.75) 40%,
+      rgba(10,10,10,0.4) 70%,
+      rgba(10,10,10,0.1) 100%
+    ),
+    url("https://i.pinimg.com/736x/a9/de/8f/a9de8f043dc75955f1ea8f443716f1ae.jpg");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.hero-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.4rem;
+  background-color: var(--accent);
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.hero-btn:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   SMALL SCREENS (NO STACKING)
+========================= */
+@media (max-width: 480px) {
+
+  .logo img {
+    height: 30px;
+  }
+
+  .menu-btn {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .hero {
+    padding: 3rem 1.2rem;
+  }
+
+  .hero-content h1 {
+    font-size: 1.9rem;
+  }
+
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+}
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  background-color: var(--black);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
