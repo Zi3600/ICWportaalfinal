@@ -4,123 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Over ICW — ICW-portaal</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Courier New', Courier, monospace;
-      background-color: #1b1b32;
-      color: #f5f5f5;
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #0a0a23;
-      padding: 16px 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #f1be32;
-    }
-
-    .logo img { height: 40px; display: block; }
-
-    .header-right { display: flex; align-items: center; gap: 12px; }
-
-    .lang { position: relative; }
-
-    .lang-btn {
-      background-color: #0a0a23;
-      color: #f5f5f5;
-      border: 1px solid #f5f5f5;
-      padding: 8px 12px;
-      font-family: inherit;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .lang-btn:hover { background-color: #f1be32; color: #0a0a23; }
-
-    .lang-menu {
-      list-style: none;
-      position: absolute;
-      top: 42px;
-      right: 0;
-      background-color: #0a0a23;
-      border: 1px solid #3b3b4f;
-      border-radius: 4px;
-      min-width: 120px;
-      display: none;
-      z-index: 10;
-    }
-
-    .lang-menu.show { display: block; }
-
-    .lang-menu button {
-      display: block;
-      width: 100%;
-      padding: 10px 16px;
-      background-color: transparent;
-      color: #f5f5f5;
-      text-align: left;
-      border: none;
-      font-family: inherit;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .lang-menu button:hover { background-color: #1b1b32; color: #f1be32; }
-
-    nav { position: relative; }
-
-    .menu-btn {
-      background-color: #0a0a23;
-      color: #f5f5f5;
-      border: 1px solid #f5f5f5;
-      padding: 8px 14px;
-      font-family: inherit;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .menu-btn:hover { background-color: #f1be32; color: #0a0a23; }
-
-    .menu {
-      list-style: none;
-      position: absolute;
-      top: 45px;
-      right: 0;
-      background-color: #0a0a23;
-      border: 1px solid #3b3b4f;
-      border-radius: 4px;
-      min-width: 280px;
-      display: none;
-      z-index: 10;
-    }
-
-    .menu.show { display: block; }
-
-    .menu .free-tag {
-      display: inline-block;
-      margin-left: 8px;
-      color: #f1be32;
-      font-size: 11px;
-      letter-spacing: 0.5px;
-    }
-
-    .menu a {
-      display: block;
-      padding: 12px 16px;
-      color: #f5f5f5;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .menu a:hover { background-color: #1b1b32; color: #f1be32; }
-
     section { padding: 80px 24px; max-width: 800px; margin: 0 auto; }
 
     .alt-bg {
@@ -231,20 +118,11 @@
     }
     .btn:hover { background-color: #f5f5f5; }
 
-    footer {
-      background-color: #0a0a23;
-      text-align: center;
-      padding: 20px;
-      font-size: 13px;
-      color: #d0d0d5;
-    }
-
     @media (max-width: 600px) {
       section, .alt-bg { padding: 50px 18px; }
       h1 { font-size: 26px; }
       h2 { font-size: 22px; }
-      .header-right { gap: 8px; }
-      .logo img { height: 32px; }
+
     }
   </style>
 </head>
@@ -385,14 +263,6 @@
   </footer>
 
   <script>
-    // === Menu and language toggle helpers ===
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
-    }
-
-    function toggleLang() {
-      document.getElementById("lang-menu").classList.toggle("show");
-    }
 
     // === Helper: change every "Ja" / "Een beetje" / "Nee" label at once ===
     // We have many of these spans in the quiz so we loop with a regular for-loop.
@@ -578,14 +448,6 @@
 
       localStorage.setItem("icw-lang", lang);
       document.getElementById("lang-menu").classList.remove("show");
-    }
-
-    // Load the saved language on page open
-    let savedLang = localStorage.getItem("icw-lang");
-    if (savedLang === "en") {
-      setLang("en");
-    } else if (savedLang === "fr") {
-      setLang("fr");
     }
 
     // === Quiz logic ===
